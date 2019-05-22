@@ -1,4 +1,4 @@
-package srm
+package models
 
 // Scheme model
 type Scheme struct {
