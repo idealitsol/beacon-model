@@ -1,4 +1,4 @@
-package models
+package srm
 
 // Course model
 type Course struct {

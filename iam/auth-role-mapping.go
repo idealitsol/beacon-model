@@ -1,4 +1,4 @@
-package models
+package iam
 
 import (
 	"time"
