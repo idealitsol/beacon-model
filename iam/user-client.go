@@ -25,7 +25,7 @@ type ClientUser struct {
 	PwdExpiryTime  *time.Time        `json:"pwdExpiryTime"`
 	PwdLifeInDays  int               `json:"pwdLifeInDays" gorm:"default:0"`
 	ForcePWDChange bool              `json:"forcePwdChange" gorm:"default:false"`
-	Institution    string            `json:"institution" gorm:"type:UUID"`
+	Institution    string            `json:"-" gorm:"type:UUID"`
 	Roles          []AuthRoleMapping `json:"-" gorm:"foreignkey:User"`
 
 	util.ModelCUD

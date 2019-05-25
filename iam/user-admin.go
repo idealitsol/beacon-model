@@ -30,7 +30,7 @@ type AdminUser struct {
 	PwdExpiryTime  *time.Time `json:"pwdExpiryTime"`
 	PwdLifeInDays  int        `json:"pwdLifeInDays" gorm:"default:0"`
 	ForcePWDChange bool       `json:"forcePwdChange" gorm:"default:false"`
-	Institution    string     `json:"institution" gorm:"type:UUID"`
+	Institution    string     `json:"-" gorm:"type:UUID"`
 }
 
 // AdminUsers is an array of AdminUser objects
