@@ -9,13 +9,13 @@ import (
 
 // AuthAccessToken model
 type AuthAccessToken struct {
-	ID   string    `json:"id" gorm:"primary_key"`
-	UserID   string    `json:"uuid" gorm:"column:userid"`
-	TTL        int32    `json:"ttl"`
-	IP       string      `json:"ip" gorm:"varchar(30)"`
+	ID            string    `json:"id" gorm:"primary_key"`
+	UserID        string    `json:"uuid" gorm:"column:userid"`
+	TTL           int32     `json:"ttl"`
+	IP            string    `json:"ip" gorm:"varchar(30)"`
 	PrincipalType string    `json:"principalType" gorm:"column:principaltype;type:varchar(30)"`
-	Platform string    `json:"platform" gorm:"varchar(10)"`
-	Created       time.Time  `json:"created"`
+	Platform      string    `json:"platform" gorm:"varchar(10)"`
+	Created       time.Time `json:"created"`
 }
 
 // AuthAccessTokens is an array of AuthRoleMapping

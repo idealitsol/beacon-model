@@ -18,12 +18,12 @@ type ClientUser struct {
 	Email          string            `json:"email" gorm:"type:varchar(100);unique_index"`
 	AccountAccess  bool              `json:"-"`
 	LoginCounter   int               `json:"-"`
-	LastLogin      time.Time         `json:"-" gorm:"default:null"`
-	AccountExpiry  *time.Time        `json:"-"`
+	LastLogin      time.Time         `json:"lastLogin" gorm:"default:null"`
+	AccountExpiry  time.Time         `json:"-"`
 	Photo          *string           `json:"photo"`
 	ForcePWDChange bool              `json:"forcePwdChange"`
-	PwdExpiry      bool              `json:"-"`
-	PwdExpiryTime  *time.Time        `json:"-"`
+	PwdExpiry      bool              `json:"pwdExpiry"`
+	PwdExpiryTime  time.Time         `json:"PwdExpiryTime"`
 	PwdLifeInDays  int               `json:"-"`
 	Roles          []AuthRoleMapping `json:"-" gorm:"foreignkey:User"`
 
