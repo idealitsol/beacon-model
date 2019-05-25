@@ -10,21 +10,21 @@ import (
 
 // ClientUser model
 type ClientUser struct {
-	ID             string            `json:"id" gorm:"primary_key;AUTO_INCREMENT"`
-	Username       string            `json:"username" gorm:"unique;not null"`
+	ID             string            `json:"id,omitempty" gorm:"primary_key;AUTO_INCREMENT"`
+	Username       string            `json:"username,omitempty" gorm:"unique;not null"`
 	Password       string            `json:"-"`
 	PIN            *int              `json:"-" gorm:"type:int(6)"`
-	Fullname       string            `json:"fullname" gorm:"not null"`
-	Email          string            `json:"email" gorm:"type:varchar(100);unique_index"`
-	AccountAccess  bool              `json:"accountAccess" gorm:"default:true"`
-	LoginCounter   int               `json:"loginCounter" gorm:"default:0"`
-	LastLogin      *time.Time        `json:"lastLogin" gorm:"default:null"`
-	AccountExpiry  *time.Time        `json:"accountExpiry"`
-	Photo          *string           `json:"photo"`
-	PwdExpiry      bool              `json:"pwdExpiry" gorm:"default:false"`
-	PwdExpiryTime  *time.Time        `json:"pwdExpiryTime"`
-	PwdLifeInDays  int               `json:"pwdLifeInDays" gorm:"default:0"`
-	ForcePWDChange bool              `json:"forcePwdChange" gorm:"default:false"`
+	Fullname       string            `json:"fullname,omitempty" gorm:"not null"`
+	Email          string            `json:"email,omitempty" gorm:"type:varchar(100);unique_index"`
+	AccountAccess  bool              `json:"accountAccess,omitempty" gorm:"default:true"`
+	LoginCounter   int               `json:"loginCounter,omitempty" gorm:"default:0"`
+	LastLogin      *time.Time        `json:"lastLogin,omitempty" gorm:"default:null"`
+	AccountExpiry  *time.Time        `json:"accountExpiry,omitempty"`
+	Photo          *string           `json:"photo,omitempty"`
+	PwdExpiry      bool              `json:"pwdExpiry,omitempty" gorm:"default:false"`
+	PwdExpiryTime  *time.Time        `json:"pwdExpiryTime,omitempty"`
+	PwdLifeInDays  int               `json:"pwdLifeInDays,omitempty" gorm:"default:0"`
+	ForcePWDChange bool              `json:"forcePwdChange,omitempty" gorm:"default:false"`
 	Institution    string            `json:"-" gorm:"type:UUID"`
 	Roles          []AuthRoleMapping `json:"-" gorm:"foreignkey:User"`
 
