@@ -9,8 +9,8 @@ import (
 
 // AuthAccessToken model
 type AuthAccessToken struct {
-	ID            string     `json:"id" gorm:"primary_key"`
-	UserID        string     `json:"uuid" gorm:"column:userid"`
+	Id            string     `json:"id" gorm:"primary_key"`
+	UserId        string     `json:"uuid" gorm:"column:userid"`
 	TTL           int32      `json:"ttl"`
 	IP            string     `json:"ip" gorm:"varchar(30)"`
 	PrincipalType string     `json:"principalType" gorm:"column:principaltype;type:varchar(30)"`

@@ -16,7 +16,7 @@ const (
 
 // AuthRole model
 type AuthRole struct {
-	ID          string `json:"id" gorm:"primary_key"`
+	Id          string `json:"id" gorm:"primary_key"`
 	Name        string `json:"name" gorm:"varchar(30);not null;unique_index"`
 	Description string `json:"description" gorm:"type:varchar(255)"`
 	Default     bool   `json:"default" gorm:"default:false"`
