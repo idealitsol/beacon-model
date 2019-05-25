@@ -21,14 +21,14 @@ type AdminUser struct {
 	Password       string    `json:"-"`
 	Fullname       string    `json:"fullname" gorm:"not null"`
 	Email          string    `json:"email" gorm:"type:varchar(100);unique_index"`
-	AccountAccess  bool      `json:"-" gorm:"default:true"`
-	LoginCounter   int       `json:"-" gorm:"default:0"`
-	LastLogin      time.Time `json:"-" gorm:"default:null"`
-	AccountExpiry  time.Time `json:"-"`
+	AccountAccess  bool      `json:"accountAccess" gorm:"default:true"`
+	LoginCounter   int       `json:"loginCounter" gorm:"default:0"`
+	LastLogin      time.Time `json:"lastLogin" gorm:"default:null"`
+	AccountExpiry  time.Time `json:"accountExpiry"`
 	Photo          *string   `json:"photo"`
-	PwdExpiry      bool      `json:"-" gorm:"default:false"`
-	PwdExpiryTime  time.Time `json:"-"`
-	PwdLifeInDays  int       `json:"-" gorm:"default:0"`
+	PwdExpiry      bool      `json:"pwdExpiry" gorm:"default:false"`
+	PwdExpiryTime  time.Time `json:"pwdExpiryTime"`
+	PwdLifeInDays  int       `json:"pwdLifeInDays" gorm:"default:0"`
 	ForcePWDChange bool      `json:"forcePwdChange" gorm:"default:false"`
 	Institution    string    `json:"institution" gorm:"type:UUID"`
 }

@@ -16,15 +16,16 @@ type ClientUser struct {
 	PIN            *int              `json:"-" gorm:"type:int(6)"`
 	Fullname       string            `json:"fullname" gorm:"not null"`
 	Email          string            `json:"email" gorm:"type:varchar(100);unique_index"`
-	AccountAccess  bool              `json:"-"`
-	LoginCounter   int               `json:"-"`
+	AccountAccess  bool              `json:"accountAccess" gorm:"default:true"`
+	LoginCounter   int               `json:"loginCounter" gorm:"default:0"`
 	LastLogin      time.Time         `json:"lastLogin" gorm:"default:null"`
-	AccountExpiry  time.Time         `json:"-"`
+	AccountExpiry  time.Time         `json:"accountExpiry"`
 	Photo          *string           `json:"photo"`
-	ForcePWDChange bool              `json:"forcePwdChange"`
-	PwdExpiry      bool              `json:"pwdExpiry"`
-	PwdExpiryTime  time.Time         `json:"PwdExpiryTime"`
-	PwdLifeInDays  int               `json:"-"`
+	PwdExpiry      bool              `json:"pwdExpiry" gorm:"default:false"`
+	PwdExpiryTime  time.Time         `json:"pwdExpiryTime"`
+	PwdLifeInDays  int               `json:"pwdLifeInDays" gorm:"default:0"`
+	ForcePWDChange bool              `json:"forcePwdChange" gorm:"default:false"`
+	Institution    string            `json:"institution" gorm:"type:UUID"`
 	Roles          []AuthRoleMapping `json:"-" gorm:"foreignkey:User"`
 
 	util.ModelCUD
