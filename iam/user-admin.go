@@ -2,6 +2,7 @@ package iam
 
 import (
 	"fmt"
+	"time"
 
 	util "github.com/idealitsol/beacon-util"
 	"github.com/jinzhu/gorm"
@@ -15,21 +16,21 @@ const (
 
 // AdminUser model
 type AdminUser struct {
-	ID             string          `json:"id" gorm:"type:UUID;primary_key;default:gen_random_uuid();size:36"`
-	Username       string          `json:"username" gorm:"unique;not null"`
-	Password       string          `json:"-"`
-	Fullname       string          `json:"fullname" gorm:"not null"`
-	Email          string          `json:"email" gorm:"type:varchar(100);unique_index"`
-	AccountAccess  bool            `json:"accountAccess" gorm:"default:true"`
-	LoginCounter   int             `json:"loginCounter" gorm:"default:0"`
-	LastLogin      util.BeaconTime `json:"lastLogin" gorm:"default:null"`
-	AccountExpiry  util.BeaconTime `json:"accountExpiry"`
-	Photo          *string         `json:"photo"`
-	PwdExpiry      bool            `json:"pwdExpiry" gorm:"default:false"`
-	PwdExpiryTime  util.BeaconTime `json:"pwdExpiryTime"`
-	PwdLifeInDays  int             `json:"pwdLifeInDays" gorm:"default:0"`
-	ForcePWDChange bool            `json:"forcePwdChange" gorm:"default:false"`
-	Institution    string          `json:"institution" gorm:"type:UUID"`
+	ID             string     `json:"id" gorm:"type:UUID;primary_key;default:gen_random_uuid();size:36"`
+	Username       string     `json:"username" gorm:"unique;not null"`
+	Password       string     `json:"-"`
+	Fullname       string     `json:"fullname" gorm:"not null"`
+	Email          string     `json:"email" gorm:"type:varchar(100);unique_index"`
+	AccountAccess  bool       `json:"accountAccess" gorm:"default:true"`
+	LoginCounter   int        `json:"loginCounter" gorm:"default:0"`
+	LastLogin      *time.Time `json:"lastLogin" gorm:"default:null"`
+	AccountExpiry  *time.Time `json:"accountExpiry"`
+	Photo          *string    `json:"photo"`
+	PwdExpiry      bool       `json:"pwdExpiry" gorm:"default:false"`
+	PwdExpiryTime  *time.Time `json:"pwdExpiryTime"`
+	PwdLifeInDays  int        `json:"pwdLifeInDays" gorm:"default:0"`
+	ForcePWDChange bool       `json:"forcePwdChange" gorm:"default:false"`
+	Institution    string     `json:"institution" gorm:"type:UUID"`
 }
 
 // AdminUsers is an array of AdminUser objects

@@ -9,12 +9,12 @@ import (
 
 // AuthRoleMapping model
 type AuthRoleMapping struct {
-	PrincipalID   string    `json:"principalId" gorm:"primary_key"`
-	RoleID        string    `json:"roleId" gorm:"primary_key"`
-	PrincipalType string    `json:"principalType" gorm:"varchar(30)"`
-	Expiry        time.Time `json:"-" gorm:"default:null"`
-	Default       bool      `json:"default" gorm:"default:false"`
-	Status        bool      `json:"status" gorm:"default:false"`
+	PrincipalID   string     `json:"principalId" gorm:"primary_key"`
+	RoleID        string     `json:"roleId" gorm:"primary_key"`
+	PrincipalType string     `json:"principalType" gorm:"varchar(30)"`
+	Expiry        *time.Time `json:"-" gorm:"default:null"`
+	Default       bool       `json:"default" gorm:"default:false"`
+	Status        bool       `json:"status" gorm:"default:false"`
 
 	AuthRole *AuthRole `json:"role,omitempty" gorm:"column:authRole;ForeignKey:ID;AssociationForeignKey:RoleID"`
 
