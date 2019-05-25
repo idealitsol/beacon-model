@@ -2,7 +2,6 @@ package iam
 
 import (
 	"fmt"
-	"time"
 
 	util "github.com/idealitsol/beacon-util"
 	"github.com/jinzhu/gorm"
@@ -18,11 +17,11 @@ type ClientUser struct {
 	Email          string            `json:"email" gorm:"type:varchar(100);unique_index"`
 	AccountAccess  bool              `json:"accountAccess" gorm:"default:true"`
 	LoginCounter   int               `json:"loginCounter" gorm:"default:0"`
-	LastLogin      time.Time         `json:"lastLogin" gorm:"default:null"`
-	AccountExpiry  *time.Time        `json:"accountExpiry"`
+	LastLogin      util.BeaconTime   `json:"lastLogin" gorm:"default:null"`
+	AccountExpiry  util.BeaconTime   `json:"accountExpiry"`
 	Photo          *string           `json:"photo"`
 	PwdExpiry      bool              `json:"pwdExpiry" gorm:"default:false"`
-	PwdExpiryTime  *time.Time        `json:"pwdExpiryTime"`
+	PwdExpiryTime  util.BeaconTime   `json:"pwdExpiryTime"`
 	PwdLifeInDays  int               `json:"pwdLifeInDays" gorm:"default:0"`
 	ForcePWDChange bool              `json:"forcePwdChange" gorm:"default:false"`
 	Institution    string            `json:"institution" gorm:"type:UUID"`
