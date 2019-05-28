@@ -24,7 +24,7 @@ type Courses []Course
 
 // CourseP2STransformer transforms course Protobuf to Struct
 func CourseP2STransformer(data *pbx.Course) Course {
-	return Course{
+	course := Course{
 		Code:        data.GetCode(),
 		Title:       data.GetTitle(),
 		Description: data.GetDescription(),
@@ -35,6 +35,22 @@ func CourseP2STransformer(data *pbx.Course) Course {
 		PreCourse:   data.GetPreCourse(),
 		Status:      data.GetStatus(),
 	}
+
+	// If GetId has no value then it's a POST request (Create or Update)
+	if len(data.GetId()) != 0 {
+		course.Id = data.GetId()
+	}
+
+	// includes scheme
+	if data.GetScheme() != nil {
+		course.Scheme = &Scheme{
+			Id:     data.GetScheme().Id,
+			Scheme: data.GetScheme().Scheme,
+			Status: data.GetScheme().Status,
+		}
+	}
+
+	return course
 }
 
 // CourseS2PTransformer transforms course Struct to Protobuf
