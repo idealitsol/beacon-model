@@ -1,5 +1,9 @@
 package srm
 
+import (
+	"github.com/idealitsol/beacon-proto/pbx"
+)
+
 // Course model
 type Course struct {
 	Id          string  `json:"id" gorm:"type:UUID;primary_key;default:gen_random_uuid();size:36"`
@@ -17,3 +21,45 @@ type Course struct {
 
 // Courses array
 type Courses []Course
+
+// CourseP2STransformer transforms course Protobuf to Struct
+func CourseP2STransformer(data *pbx.Course) Course {
+	return Course{
+		Code:        data.GetCode(),
+		Title:       data.GetTitle(),
+		Description: data.GetDescription(),
+		Credits:     data.GetCredits(),
+		Type:        data.GetType(),
+		Owner:       data.GetOwner(),
+		SchemeId:    data.GetSchemeId(),
+		PreCourse:   data.GetPreCourse(),
+		Status:      data.GetStatus(),
+	}
+}
+
+// CourseS2PTransformer transforms course Struct to Protobuf
+func CourseS2PTransformer(data Course) *pbx.Course {
+	course := &pbx.Course{
+		Id:          data.Id,
+		Code:        data.Code,
+		Title:       data.Title,
+		Description: data.Description,
+		Credits:     data.Credits,
+		Owner:       data.Owner,
+		Type:        data.Type,
+		SchemeId:    data.SchemeId,
+		PreCourse:   data.PreCourse,
+		Status:      data.Status,
+	}
+
+	// includes scheme
+	if data.Scheme != nil {
+		course.Scheme = &pbx.Scheme{
+			Id:     data.Scheme.Id,
+			Scheme: data.Scheme.Scheme,
+			Status: data.Scheme.Status,
+		}
+	}
+
+	return course
+}
