@@ -141,5 +141,10 @@ func AdminUserS2PTransformer(data AdminUser) *pbx.AdminUser {
 		Institution:    data.Institution,
 	}
 
+	// Handling pointer string
+	if data.Photo != nil {
+		model.Photo = *data.Photo
+	}
+
 	return model
 }
