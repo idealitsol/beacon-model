@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/idealitsol/beacon-proto/pbx"
+
 	util "github.com/idealitsol/beacon-util"
 	"github.com/jinzhu/gorm"
 )
@@ -86,4 +88,58 @@ func (o *AdminUser) AllowLogin() error {
 // ToString is a somewhat generic ToString method.
 func (o *AdminUser) ToString() string {
 	return o.Id + " " + o.Fullname
+}
+
+// AdminUserP2STransformer transforms Protobuf to Struct
+func AdminUserP2STransformer(data *pbx.AdminUser) AdminUser {
+	model := AdminUser{
+		Username:       data.GetUsername(),
+		Password:       data.GetPassword(),
+		Fullname:       data.GetFullname(),
+		Email:          data.GetEmail(),
+		AccountAccess:  data.GetAccountAccess(),
+		LoginCounter:   int(data.GetLoginCounter()),
+		LastLogin:      util.GrpcTimeToGoTime(data.GetLastLogin()),
+		AccountExpiry:  util.GrpcTimeToGoTime(data.GetAccountExpiry()),
+		PwdExpiry:      data.GetPwdExpiry(),
+		PwdExpiryTime:  util.GrpcTimeToGoTime(data.GetPwdExpiryTime()),
+		PwdLifeInDays:  int(data.GetPwdLifeInDays()),
+		ForcePwdChange: data.GetForcePwdChange(),
+		Institution:    data.GetInstitution(),
+	}
+
+	// If GetId has no value then it's a POST request (Create)
+	if len(data.GetId()) != 0 {
+		model.Id = data.GetId()
+	}
+
+	// Handling pointer string
+	if len(data.GetPhoto()) != 0 {
+		pix := data.GetPhoto()
+		model.Photo = &pix
+	}
+
+	return model
+}
+
+// AdminUserS2PTransformer transforms Struct to Protobuf
+func AdminUserS2PTransformer(data AdminUser) *pbx.AdminUser {
+	model := &pbx.AdminUser{
+		Id:             data.Id,
+		Username:       data.Username,
+		Password:       data.Password,
+		Fullname:       data.Fullname,
+		Email:          data.Email,
+		AccountAccess:  data.AccountAccess,
+		LoginCounter:   int32(data.LoginCounter),
+		LastLogin:      util.GoTimeToGrpcTime(data.LastLogin),
+		AccountExpiry:  util.GoTimeToGrpcTime(data.AccountExpiry),
+		PwdExpiry:      data.PwdExpiry,
+		PwdExpiryTime:  util.GoTimeToGrpcTime(data.PwdExpiryTime),
+		PwdLifeInDays:  int32(data.PwdLifeInDays),
+		ForcePwdChange: data.ForcePwdChange,
+		Institution:    data.Institution,
+	}
+
+	return model
 }

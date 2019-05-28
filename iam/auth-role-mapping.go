@@ -3,7 +3,7 @@ package iam
 import (
 	"time"
 
-	util "github.com/bekinsoft/beacon-util"
+	util "github.com/idealitsol/beacon-util"
 	"github.com/jinzhu/gorm"
 )
 
