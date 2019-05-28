@@ -16,7 +16,7 @@ type Course struct {
 	SchemeId    string  `json:"schemeId" gorm:"type:UUID;default:'00000000-0000-0000-0000-000000000000'"` // Default Grading Scheme for the Course
 	PreCourse   string  `json:"preCourse" gorm:"type:varchar(10)"`                                        // If a course is a prerequisite then we set it here (This is pcrel_preq)
 	Status      bool    `json:"status" gorm:"type:bool;default:false"`
-	Scheme      *Scheme `json:"scheme" gorm:"ForeignKey:ID;AssociationForeignKey:SchemeID"`
+	Scheme      *Scheme `json:"scheme,omitempty" gorm:"ForeignKey:ID;AssociationForeignKey:SchemeID"`
 }
 
 // Courses array
@@ -36,7 +36,7 @@ func CourseP2STransformer(data *pbx.Course) Course {
 		Status:      data.GetStatus(),
 	}
 
-	// If GetId has no value then it's a POST request (Create or Update)
+	// If GetId has no value then it's a POST request (Create)
 	if len(data.GetId()) != 0 {
 		course.Id = data.GetId()
 	}
