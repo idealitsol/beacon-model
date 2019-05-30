@@ -33,6 +33,8 @@ type AdminUser struct {
 	PwdLifeInDays  int        `json:"pwdLifeInDays" gorm:"default:0"`
 	ForcePwdChange bool       `json:"forcePwdChange" gorm:"default:false"`
 	Institution    string     `json:"-" gorm:"type:UUID"`
+
+	util.ModelCUD
 }
 
 // AdminUsers is an array of AdminUser objects
@@ -45,8 +47,8 @@ func (o *AdminUser) BeforeCreate(scope *gorm.Scope) error {
 	// }
 	scope.SetColumn("ID", util.TimeUUID().String())
 	scope.SetColumn("Password", util.HashAndSalt([]byte(o.Password)))
-	// o.CreatedAt = time.Now()
-	// o.UpdatedAt = nil
+	*o.CreatedAt = time.Now()
+	o.UpdatedAt = nil
 	return nil
 }
 
