@@ -145,6 +145,8 @@ func AdminUserS2PTransformer(data AdminUser) *pbx.AdminUser {
 		PwdLifeInDays:  int32(data.PwdLifeInDays),
 		ForcePwdChange: data.ForcePwdChange,
 		Institution:    data.Institution,
+
+		BXX_UpdatedFields: data.BXXUpdatedFields,
 	}
 
 	// Handling pointer string
