@@ -35,6 +35,8 @@ type AdminUser struct {
 	Institution    string     `json:"-" gorm:"type:UUID"`
 
 	util.ModelCUD
+
+	BXXUpdatedFields []string `json:"-" gorm:"-"`
 }
 
 // AdminUsers is an array of AdminUser objects
