@@ -110,6 +110,8 @@ func AdminUserP2STransformer(data *pbx.AdminUser) AdminUser {
 		PwdLifeInDays:  int(data.GetPwdLifeInDays()),
 		ForcePwdChange: data.GetForcePwdChange(),
 		Institution:    data.GetInstitution(),
+
+		BXXUpdatedFields: data.GetBXX_UpdatedFields(),
 	}
 
 	// If GetId has no value then it's a POST request (Create)
