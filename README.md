@@ -1,10 +1,6 @@
 # beacon-model
 Beacon model houses all the models used in beacon.
 
-## Some useful and must do when using GRPC proto and Golang structs
-Because we're using grpc and golang and at a point we want to tranform data from grpc to golang and vice versa, we ensure the field names for models in `.proto` messages and structs in `.go` are the same.
-
-DO NOT follow go-lint when naming fields of structs. Ensure that all fields are *UpperCamelCase* as possible
 ### time.Time Type in models
 Make sure all `time.Time` types are pointers in the model struct
 
