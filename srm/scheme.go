@@ -9,6 +9,8 @@ type Scheme struct {
 	Status      bool   `json:"status" gorm:"type:bool;default:false"`
 	Institution string `json:"-" gorm:"type:UUID"`
 	// Scheme *Scheme `gorm:"ForeignKey:SchemeID;AssociationForeignKey:ID"`
+
+	BXXUpdatedFields []string `json:"-" gorm:"-"`
 }
 
 // Schemes array

@@ -19,6 +19,8 @@ type Course struct {
 	Institution string  `json:"-" gorm:"type:UUID"`
 
 	Scheme *Scheme `json:"scheme,omitempty" gorm:"ForeignKey:ID;AssociationForeignKey:SchemeID"`
+
+	BXXUpdatedFields []string `json:"-" gorm:"-"`
 }
 
 // Courses array
