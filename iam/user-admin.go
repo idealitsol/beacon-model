@@ -32,7 +32,7 @@ type AdminUser struct {
 	PwdExpiryTime  *time.Time `json:"pwdExpiryTime"`
 	PwdLifeInDays  int        `json:"pwdLifeInDays" gorm:"default:0"`
 	ForcePwdChange bool       `json:"forcePwdChange" gorm:"default:false"`
-	Institution    string     `json:"-" gorm:"type:UUID"`
+	InstitutionID  string     `json:"-" gorm:"type:UUID"`
 
 	util.ModelCUD
 
@@ -130,7 +130,7 @@ func AdminUserP2STransformer(data *pbx.AdminUser) AdminUser {
 		PwdExpiryTime:  util.GrpcTimeToGoTime(data.GetPwdExpiryTime()),
 		PwdLifeInDays:  int(data.GetPwdLifeInDays()),
 		ForcePwdChange: data.GetForcePwdChange(),
-		Institution:    data.GetInstitution(),
+		InstitutionID:  data.GetInstitutionId(),
 
 		BXXUpdatedFields: data.GetBXX_UpdatedFields(),
 	}
@@ -165,7 +165,7 @@ func AdminUserS2PTransformer(data AdminUser) *pbx.AdminUser {
 		PwdExpiryTime:  util.GoTimeToGrpcTime(data.PwdExpiryTime),
 		PwdLifeInDays:  int32(data.PwdLifeInDays),
 		ForcePwdChange: data.ForcePwdChange,
-		Institution:    data.Institution,
+		InstitutionId:  data.InstitutionID,
 
 		BXX_UpdatedFields: data.BXXUpdatedFields,
 	}
