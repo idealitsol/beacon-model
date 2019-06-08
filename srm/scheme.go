@@ -19,7 +19,7 @@ func (o *Scheme) StructTransformer(data *pbx.Scheme) Scheme {
 	o.Scheme = data.GetScheme()
 	o.Status = data.GetStatus()
 	o.Institution = data.GetInstitution()
-	return o
+	return *o
 }
 
 // ProtoTransformer transforms Scheme Struct to Protobuf

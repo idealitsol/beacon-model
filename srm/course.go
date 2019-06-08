@@ -33,7 +33,7 @@ func CourseP2STransformer(data *pbx.Course) Course {
 		Credits:     data.GetCredits(),
 		Type:        data.GetType(),
 		Owner:       data.GetOwner(),
-		SchemeId:    data.GetSchemeId(),
+		SchemeID:    data.GetSchemeId(),
 		PreCourse:   data.GetPreCourse(),
 		Status:      data.GetStatus(),
 		Institution: data.GetInstitution(),
@@ -47,7 +47,7 @@ func CourseP2STransformer(data *pbx.Course) Course {
 	// includes scheme
 	if data.GetScheme() != nil {
 		course.Scheme = &Scheme{
-			Id:     data.GetScheme().Id,
+			ID:     data.GetScheme().Id,
 			Scheme: data.GetScheme().Scheme,
 			Status: data.GetScheme().Status,
 		}
@@ -66,7 +66,7 @@ func CourseS2PTransformer(data Course) *pbx.Course {
 		Credits:     data.Credits,
 		Owner:       data.Owner,
 		Type:        data.Type,
-		SchemeId:    data.SchemeId,
+		SchemeId:    data.SchemeID,
 		PreCourse:   data.PreCourse,
 		Status:      data.Status,
 	}
