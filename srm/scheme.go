@@ -21,6 +21,8 @@ func (o *Scheme) StructTransformer(data *pbx.Scheme) Scheme {
 	o.Scheme = data.GetScheme()
 	o.Status = data.GetStatus()
 	o.InstitutionID = data.GetInstitutionId()
+
+	o.BXXUpdatedFields = data.GetBXX_UpdatedFields()
 	return *o
 }
 
@@ -31,5 +33,7 @@ func (o *Scheme) ProtoTransformer(data Scheme) *pbx.Scheme {
 		Scheme:        o.Scheme,
 		Status:        o.Status,
 		InstitutionId: o.InstitutionID,
+
+		BXX_UpdatedFields: o.BXXUpdatedFields,
 	}
 }

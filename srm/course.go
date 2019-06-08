@@ -39,6 +39,8 @@ func CourseP2STransformer(data *pbx.Course) Course {
 		PreCourse:     data.GetPreCourse(),
 		Status:        data.GetStatus(),
 		InstitutionID: data.GetInstitutionId(),
+
+		BXXUpdatedFields: data.GetBXX_UpdatedFields(),
 	}
 
 	// If GetId has no value then it's a POST request (Create)
@@ -72,6 +74,8 @@ func CourseS2PTransformer(data Course) *pbx.Course {
 		PreCourse:     data.PreCourse,
 		Status:        data.Status,
 		InstitutionId: data.InstitutionID,
+
+		BXX_UpdatedFields: data.BXXUpdatedFields,
 	}
 
 	// includes scheme
