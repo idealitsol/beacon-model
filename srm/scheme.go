@@ -4,10 +4,10 @@ import "github.com/idealitsol/beacon-proto/pbx"
 
 // Scheme model
 type Scheme struct {
-	ID          string `json:"id" gorm:"type:UUID;primary_key;default:gen_random_uuid();size:36"`
-	Scheme      string `json:"scheme" gorm:"type:varchar(255);not null;unique_index"`
-	Status      bool   `json:"status" gorm:"type:bool;default:false"`
-	Institution string `json:"-" gorm:"type:UUID"`
+	ID            string `json:"id" gorm:"type:UUID;primary_key;default:gen_random_uuid();size:36"`
+	Scheme        string `json:"scheme" gorm:"type:varchar(255);not null;unique_index"`
+	Status        bool   `json:"status" gorm:"type:bool;default:false"`
+	InstitutionID string `json:"-" gorm:"type:UUID"`
 	// Scheme *Scheme `gorm:"ForeignKey:SchemeID;AssociationForeignKey:ID"`
 
 	BXXUpdatedFields []string `json:"-" gorm:"-"`
@@ -20,16 +20,16 @@ type Schemes []Scheme
 func (o *Scheme) StructTransformer(data *pbx.Scheme) Scheme {
 	o.Scheme = data.GetScheme()
 	o.Status = data.GetStatus()
-	o.Institution = data.GetInstitution()
+	o.InstitutionID = data.GetInstitutionId()
 	return *o
 }
 
 // ProtoTransformer transforms Scheme Struct to Protobuf
 func (o *Scheme) ProtoTransformer(data Scheme) *pbx.Scheme {
 	return &pbx.Scheme{
-		Id:          o.ID,
-		Scheme:      o.Scheme,
-		Status:      o.Status,
-		Institution: o.Institution,
+		Id:            o.ID,
+		Scheme:        o.Scheme,
+		Status:        o.Status,
+		InstitutionId: o.InstitutionID,
 	}
 }
