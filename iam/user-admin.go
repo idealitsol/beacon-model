@@ -44,13 +44,14 @@ type AdminUsers []AdminUser
 
 // BeforeCreate hook   http://gorm.io/docs/hooks.html
 func (o *AdminUser) BeforeCreate(scope *gorm.Scope) error {
-	// if u.IsValid() {
-	// 	err = errors.New("can't save invalid data")
-	// }
+	if valid, err := o.validate(); !valid {
+		return err
+	}
+
 	scope.SetColumn("ID", util.TimeUUID().String())
 	scope.SetColumn("Password", util.HashAndSalt([]byte(o.Password)))
-	*o.CreatedAt = time.Now()
-	o.UpdatedAt = nil
+	now := time.Now()
+	o.CreatedAt = &now
 	return nil
 }
 
@@ -76,6 +77,26 @@ func (o *AdminUser) ConstraintError(err error) error {
 	}
 
 	return nil
+}
+
+func (o *AdminUser) validate() (bool, error) {
+	if len(o.Username) == 0 {
+		return false, fmt.Errorf("Username is required")
+	}
+
+	if len(o.Password) == 0 {
+		return false, fmt.Errorf("Password is required")
+	}
+
+	if len(o.Email) == 0 {
+		return false, fmt.Errorf("Email is required")
+	}
+
+	if len(o.Fullname) == 0 {
+		return false, fmt.Errorf("Fullname is required")
+	}
+
+	return true, nil
 }
 
 // AllowLogin Checks whether user should be allowed to login
