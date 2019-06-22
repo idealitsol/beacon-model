@@ -12,7 +12,7 @@ import (
 
 // Model Constants
 const (
-	UniqueConstraintUsername = "auth_user_username_key"
+	UniqueConstraintUsername = "uix_auth_user_username"
 	UniqueConstraintEmail    = "uix_auth_user_email"
 )
 
