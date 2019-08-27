@@ -6,7 +6,7 @@ Make sure all `time.Time` types are pointers in the model struct
 
 Example:
 
-```go
+```golang
 type Example struct {
   AccessDate *time.Time
   Created *time.Time
