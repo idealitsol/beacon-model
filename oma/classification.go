@@ -27,6 +27,12 @@ func ClassificationP2STransformer(data *pbx.Classification) Classification {
 
 		BXXUpdatedFields: data.GetBXX_UpdatedFields(),
 	}
+
+	// If GetId has no value then it's a POST request (Create)
+	if len(data.GetId()) != 0 {
+		classification.ID = data.GetId()
+	}
+
 	return classification
 }
 
