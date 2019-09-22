@@ -23,6 +23,7 @@ func ClassificationP2STransformer(data *pbx.Classification) Classification {
 	classification := Classification{
 		Name:          data.GetName(),
 		Status:        data.GetStatus(),
+		Ordering:      data.GetOrdering(),
 		InstitutionID: data.GetInstitutionId(),
 
 		BXXUpdatedFields: data.GetBXX_UpdatedFields(),
