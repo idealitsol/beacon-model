@@ -6,7 +6,7 @@ import "github.com/idealitsol/beacon-proto/pbx"
 type EntryMode struct {
 	ID            string `json:"id" gorm:"type:UUID;primary_key;default:gen_random_uuid();size:36"`
 	Name          string `json:"name" gorm:"type:varchar(30)not null"`
-	InstitutionID string `json:"institutionId" gorm:"type:UUID"`
+	InstitutionID string `json:"-" gorm:"type:UUID"`
 	Status        bool   `json:"status" gorm:"default:false"`
 	Ordering      int32  `json:"ordering" gorm:""`
 
