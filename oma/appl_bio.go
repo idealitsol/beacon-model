@@ -6,6 +6,7 @@ import (
 
 	"github.com/idealitsol/beacon-proto/pbx"
 	util "github.com/idealitsol/beacon-util"
+	"github.com/jinzhu/gorm"
 	"github.com/jinzhu/gorm/dialects/postgres"
 )
 
@@ -22,14 +23,14 @@ type ApplBio struct {
 	Email             string         `json:"email" gorm:"type:varchar(80)"`
 	Cellphone         string         `json:"cellphone" gorm:"type:varchar(13);not null"`
 	HomeAddress       string         `json:"homeAddress" gorm:"type:varchar(200)"`
-	HomeAddressRegion string         `json:"homeAddressRegion" gorm:"type:UUID"`
+	HomeAddressRegion string         `json:"homeAddressRegion" gorm:"type:varchar(50)"`
 	PostAddress       string         `json:"postAddress" gorm:"type:varchar(200)"`
-	PostAddressRegion string         `json:"postAddressRegion" gorm:"type:UUID"`
+	PostAddressRegion string         `json:"postAddressRegion" gorm:"type:varchar(50)"`
 	Disability        string         `json:"disability" gorm:"type:varchar(2);not null"`
 	BirthPlace        string         `json:"birthPlace" gorm:"type:varchar(150)"`
-	BirthRegion       string         `json:"birthRegion" gorm:"type:UUID"`
+	BirthRegion       string         `json:"birthRegion" gorm:"type:varchar(50)"`
 	HomeTown          string         `json:"homeTown" gorm:"type:varchar(150)"`
-	HomeTownRegion    string         `json:"homeTownRegion" gorm:"type:UUID"`
+	HomeTownRegion    string         `json:"homeTownRegion" gorm:"type:varchar(50)"`
 	Religion          string         `json:"religion" gorm:"type:varchar(15)"`
 	Denomination      string         `json:"denomination" gorm:"type:varchar(80)"`
 	MaritalStatus     string         `json:"maritalStatus" gorm:"type:varchar(10);not null"`
@@ -45,6 +46,15 @@ type ApplBio struct {
 
 // ApplBios is an array of ApplBio objects
 type ApplBios []ApplBio
+
+// BeforeCreate hook   http://gorm.io/docs/hooks.html
+func (o *ApplBio) BeforeCreate(scope *gorm.Scope) error {
+	// if valid, err := o.validate(); !valid {
+	// 	return err
+	// }
+
+	return nil
+}
 
 // ApplBioP2STransformer transforms ApplBio Protobuf to Struct
 func ApplBioP2STransformer(data *pbx.ApplBio) ApplBio {
