@@ -57,8 +57,8 @@ github.com/hashicorp/golang-lru v0.5.0/go.mod h1:/m3WP610KZHVQ1SGc6re/UDhFvYD7pJ
 github.com/hashicorp/hcl v1.0.0 h1:0Anlzjpi4vEasTeNFn2mLJgTSwt0+6sfsiTG8qcWGx4=
 github.com/hashicorp/hcl v1.0.0/go.mod h1:E5yfLk+7swimpb2L/Alb/PJmXilQ/rhwaUYs4T20WEQ=
 github.com/hpcloud/tail v1.0.0/go.mod h1:ab1qPbhIpdTxEkNHXyeSf5vhxWSCs/tWer42PpOxQnU=
-github.com/idealitsol/beacon-proto v0.0.31 h1:4hsCyJ8ZcKAW3R4vsWi0TVFXUwKAaTxmthEWWOkrnws=
-github.com/idealitsol/beacon-proto v0.0.31/go.mod h1:uPi39IlYbnYwJ5Hz2MhKQTQcgSujarTMYYl1p8tn6HI=
+github.com/idealitsol/beacon-proto v0.0.34 h1:MyBt9664QP2ReGa8KMorLI7fxOdsj32V1CAy5uA79VA=
+github.com/idealitsol/beacon-proto v0.0.34/go.mod h1:uPi39IlYbnYwJ5Hz2MhKQTQcgSujarTMYYl1p8tn6HI=
 github.com/idealitsol/beacon-util v0.0.12 h1:Kh+wBiiy0sF/gyMfnTCnxx1EyO9xHWFrhVAYFKtGp9Y=
 github.com/idealitsol/beacon-util v0.0.12/go.mod h1:Z+0EryCdtHnEQ1w13RPVjwVPS7aJT1tAL1Kb4wupXL0=
 github.com/jinzhu/gorm v1.9.8 h1:n5uvxqLepIP2R1XF7pudpt9Rv8I3m7G9trGxJVjLZ5k=

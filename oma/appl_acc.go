@@ -14,11 +14,12 @@ type ApplAcc struct {
 	ApplYear      int32      `json:"applYear" gorm:""`
 	Username      string     `json:"username" gorm:"type:varchar(20);not null"`
 	Password      string     `json:"password" gorm:"type:varchar(50);not null"`
-	CreatedAt     *time.Time `json:"createdAt"`
-	UpdatedAt     *time.Time `json:"updatedAt"`
 	LastLogin     *time.Time `json:"lastLogin"`
 	SelectedForm  string     `json:"selectedForm" gorm:"type:UUID"`
 	InstitutionID string     `json:"institutionId" gorm:"type:UUID"`
+
+	CreatedAt *time.Time `json:"-"`
+	UpdatedAt *time.Time `json:"-"`
 
 	BXXUpdatedFields []string `json:"-" gorm:"-"`
 }
@@ -32,8 +33,6 @@ func ApplAccP2STransformer(data *pbx.ApplAcc) ApplAcc {
 		ApplYear:      data.GetApplYear(),
 		Username:      data.GetUsername(),
 		Password:      data.GetPassword(),
-		CreatedAt:     util.GrpcTimeToGoTime(data.GetCreatedAt()),
-		UpdatedAt:     util.GrpcTimeToGoTime(data.GetUpdatedAt()),
 		LastLogin:     util.GrpcTimeToGoTime(data.GetLastLogin()),
 		SelectedForm:  data.GetSelectedForm(),
 		InstitutionID: data.GetInstitutionId(),
@@ -58,8 +57,6 @@ func ApplAccS2PTransformer(data ApplAcc) *pbx.ApplAcc {
 		ApplYear:      data.ApplYear,
 		Username:      data.Username,
 		Password:      data.Password,
-		CreatedAt:     util.GoTimeToGrpcTime(data.CreatedAt),
-		UpdatedAt:     util.GoTimeToGrpcTime(data.UpdatedAt),
 		LastLogin:     util.GoTimeToGrpcTime(data.LastLogin),
 		SelectedForm:  data.SelectedForm,
 		InstitutionId: data.InstitutionID,

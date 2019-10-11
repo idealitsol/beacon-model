@@ -12,3 +12,7 @@ type Example struct {
   Created *time.Time
 }
 ```
+
+### Auto tagging with hook
+
+We want to auto tag when w
