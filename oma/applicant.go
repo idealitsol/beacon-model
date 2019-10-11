@@ -58,5 +58,13 @@ func ApplicantS2PTransformer(data Applicant) *pbx.Applicant {
 		model.AccountInfo = ApplAccS2PTransformer(*data.AccountInfo)
 	}
 
+	if data.BioData != nil {
+		model.BioData = ApplBioS2PTransformer(*data.BioData)
+	}
+
+	if data.AcademicInfo != nil {
+		model.AcademicInfo = ApplAcaS2PTransformer(*data.AcademicInfo)
+	}
+
 	return model
 }
