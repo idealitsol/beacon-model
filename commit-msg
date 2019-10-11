@@ -3,6 +3,8 @@ COMMIT_MSG_FILE=$1
 
 bumpversion --allow-dirty patch
 
+git add version.txt
+git add .bumpversion.cfg
 git commit -m "`cat $COMMIT_MSG_FILE`" --no-verify
 
 false
