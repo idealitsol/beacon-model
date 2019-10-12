@@ -12,7 +12,7 @@ import (
 // ApplAca database model
 type ApplAca struct {
 	ApplicantID    string         `json:"applicantId" gorm:"type:UUID;primary_key;size:36"`
-	EducationLevel string         `json:"educationLevel" gorm:"type:varchar(20);not null"`
+	EducationLevel string         `json:"educationLevel" gorm:"type:varchar(20);not null;default:'None'"`
 	LastSchool     string         `json:"lastSchool" gorm:"type:UUID"`
 	SchStartDate   *time.Time     `json:"schStartDate"`
 	SchEndDate     *time.Time     `json:"schEndDate"`
@@ -25,10 +25,10 @@ type ApplAca struct {
 	ProgChoice5    string         `json:"progChoice5" gorm:"type:UUID"`
 	FeePaying      bool           `json:"feePaying" gorm:"default:false"`
 	GradResTopic   string         `json:"gradResTopic" gorm:"type:varchar(1000)"`
-	Referee1       postgres.Jsonb `json:"referee1" gorm:"type:jsonbnot null"`
-	Referee2       postgres.Jsonb `json:"referee2" gorm:"type:jsonbnot null"`
-	Referee3       postgres.Jsonb `json:"referee3" gorm:"type:jsonbnot null"`
-	Referee4       postgres.Jsonb `json:"referee4" gorm:"type:jsonbnot null"`
+	Referee1       postgres.Jsonb `json:"referee1" gorm:"type:jsonb;not null;default:'{}'"`
+	Referee2       postgres.Jsonb `json:"referee2" gorm:"type:jsonb;not null;default:'{}'"`
+	Referee3       postgres.Jsonb `json:"referee3" gorm:"type:jsonb;not null;default:'{}'"`
+	Referee4       postgres.Jsonb `json:"referee4" gorm:"type:jsonb;not null;default:'{}'"`
 	IsComplete     bool           `json:"isComplete" gorm:"default:false"`
 	InstitutionID  string         `json:"institutionId" gorm:"type:UUID"`
 
