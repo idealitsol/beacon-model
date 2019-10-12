@@ -13,32 +13,32 @@ import (
 // ApplBio database model
 type ApplBio struct {
 	ApplicantID       string         `json:"applicantId" gorm:"type:UUID;primary_key;size:36"`
-	Source            string         `json:"source" gorm:"type:varchar(6);not null"`
+	Source            string         `json:"source" gorm:"type:varchar(6);not null;default:'MANUAL'"`
 	Title             string         `json:"title" gorm:"type:varchar(5);not null"`
 	Fname             string         `json:"fname" gorm:"type:varchar(50);not null"`
 	Mname             string         `json:"mname" gorm:"type:varchar(50)"`
 	Sname             string         `json:"sname" gorm:"type:varchar(50);not null"`
-	Gender            string         `json:"gender" gorm:"type:varchar(1);not null"`
+	Gender            string         `json:"gender" gorm:"type:varchar(1);not null;default:'U'"`
 	Dob               *time.Time     `json:"dob"`
 	Email             string         `json:"email" gorm:"type:varchar(80)"`
 	Cellphone         string         `json:"cellphone" gorm:"type:varchar(13);not null"`
 	HomeAddress       string         `json:"homeAddress" gorm:"type:varchar(200)"`
-	HomeAddressRegion string         `json:"homeAddressRegion" gorm:"type:varchar(50)"`
+	HomeAddressRegion string         `json:"homeAddressRegion" gorm:"type:varchar(50);default:'None'"`
 	PostAddress       string         `json:"postAddress" gorm:"type:varchar(200)"`
-	PostAddressRegion string         `json:"postAddressRegion" gorm:"type:varchar(50)"`
-	Disability        string         `json:"disability" gorm:"type:varchar(2);not null"`
+	PostAddressRegion string         `json:"postAddressRegion" gorm:"type:varchar(50);default:'None'"`
+	Disability        string         `json:"disability" gorm:"type:varchar(2);not null;default:'NO'"`
 	BirthPlace        string         `json:"birthPlace" gorm:"type:varchar(150)"`
-	BirthRegion       string         `json:"birthRegion" gorm:"type:varchar(50)"`
+	BirthRegion       string         `json:"birthRegion" gorm:"type:varchar(50);default:'None'"`
 	HomeTown          string         `json:"homeTown" gorm:"type:varchar(150)"`
-	HomeTownRegion    string         `json:"homeTownRegion" gorm:"type:varchar(50)"`
+	HomeTownRegion    string         `json:"homeTownRegion" gorm:"type:varchar(50);default:'None'"`
 	Religion          string         `json:"religion" gorm:"type:varchar(15)"`
 	Denomination      string         `json:"denomination" gorm:"type:varchar(80)"`
-	MaritalStatus     string         `json:"maritalStatus" gorm:"type:varchar(10);not null"`
-	NoChildren        int32          `json:"noChildren" gorm:""`
+	MaritalStatus     string         `json:"maritalStatus" gorm:"type:varchar(10);not null;default:'None'"`
+	NoChildren        int32          `json:"noChildren" gorm:"default:0"`
 	NationalID        string         `json:"nationalId" gorm:"type:varchar(20)"`
 	Country           string         `json:"country" gorm:"type:varchar(20);not null"`
 	IsComplete        bool           `json:"isComplete" gorm:"default:false"`
-	EmergencyContact  postgres.Jsonb `json:"emergencyContact" gorm:"type:jsonb"`
+	EmergencyContact  postgres.Jsonb `json:"emergencyContact" gorm:"type:jsonb;default:'{}'"`
 	InstitutionID     string         `json:"institutionId" gorm:"type:UUID"`
 
 	BXXUpdatedFields []string `json:"-" gorm:"-"`
