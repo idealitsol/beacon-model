@@ -30,7 +30,7 @@ type ApplAca struct {
 	Referee3       postgres.Jsonb `json:"referee3" gorm:"type:jsonb;not null;default:'{}'"`
 	Referee4       postgres.Jsonb `json:"referee4" gorm:"type:jsonb;not null;default:'{}'"`
 	IsComplete     bool           `json:"isComplete" gorm:"default:false"`
-	InstitutionID  string         `json:"institutionId" gorm:"type:UUID;"`
+	InstitutionID  string         `json:"-" gorm:"type:UUID;"`
 
 	BXXUpdatedFields []string `json:"-" gorm:"-"`
 }

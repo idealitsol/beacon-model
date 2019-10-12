@@ -17,7 +17,7 @@ type ApplAcc struct {
 	UpdatedAt     *time.Time `json:"updatedAt"`
 	LastLogin     *time.Time `json:"lastLogin"`
 	SelectedForm  string     `json:"selectedForm" gorm:"type:UUID"`
-	InstitutionID string     `json:"institutionId" gorm:"type:UUID"`
+	InstitutionID string     `json:"-" gorm:"type:UUID"`
 	IsComplete    bool       `json:"isComplete" gorm:"default:false"`
 
 	BXXUpdatedFields []string `json:"-" gorm:"-"`

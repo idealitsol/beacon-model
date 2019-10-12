@@ -39,7 +39,7 @@ type ApplBio struct {
 	Country           string         `json:"country" gorm:"type:varchar(20);not null"`
 	IsComplete        bool           `json:"isComplete" gorm:"default:false"`
 	EmergencyContact  postgres.Jsonb `json:"emergencyContact" gorm:"type:jsonb;default:'{}'"`
-	InstitutionID     string         `json:"institutionId" gorm:"type:UUID"`
+	InstitutionID     string         `json:"-" gorm:"type:UUID"`
 
 	BXXUpdatedFields []string `json:"-" gorm:"-"`
 }
