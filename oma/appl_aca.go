@@ -13,16 +13,16 @@ import (
 type ApplAca struct {
 	ApplicantID    string         `json:"applicantId" gorm:"type:UUID;primary_key;size:36"`
 	EducationLevel string         `json:"educationLevel" gorm:"type:varchar(20);not null;default:'None'"`
-	LastSchool     string         `json:"lastSchool" gorm:"type:UUID"`
+	LastSchool     string         `json:"lastSchool" gorm:"type:UUID;default:'00000000-0000-0000-0000-000000000000'"`
 	SchStartDate   *time.Time     `json:"schStartDate"`
 	SchEndDate     *time.Time     `json:"schEndDate"`
-	StudyCampus    string         `json:"studyCampus" gorm:"type:UUID"`
-	StudyCenter    string         `json:"studyCenter" gorm:"type:UUID"`
-	ProgChoice1    string         `json:"progChoice1" gorm:"type:UUID"`
-	ProgChoice2    string         `json:"progChoice2" gorm:"type:UUID"`
-	ProgChoice3    string         `json:"progChoice3" gorm:"type:UUID"`
-	ProgChoice4    string         `json:"progChoice4" gorm:"type:UUID"`
-	ProgChoice5    string         `json:"progChoice5" gorm:"type:UUID"`
+	StudyCampus    string         `json:"studyCampus" gorm:"type:UUID;default:'00000000-0000-0000-0000-000000000000'"`
+	StudyCenter    string         `json:"studyCenter" gorm:"type:UUID;default:'00000000-0000-0000-0000-000000000000'"`
+	ProgChoice1    string         `json:"progChoice1" gorm:"type:UUID;default:'00000000-0000-0000-0000-000000000000'"`
+	ProgChoice2    string         `json:"progChoice2" gorm:"type:UUID;default:'00000000-0000-0000-0000-000000000000'"`
+	ProgChoice3    string         `json:"progChoice3" gorm:"type:UUID;default:'00000000-0000-0000-0000-000000000000'"`
+	ProgChoice4    string         `json:"progChoice4" gorm:"type:UUID;default:'00000000-0000-0000-0000-000000000000'"`
+	ProgChoice5    string         `json:"progChoice5" gorm:"type:UUID;default:'00000000-0000-0000-0000-000000000000'"`
 	FeePaying      bool           `json:"feePaying" gorm:"default:false"`
 	GradResTopic   string         `json:"gradResTopic" gorm:"type:varchar(1000)"`
 	Referee1       postgres.Jsonb `json:"referee1" gorm:"type:jsonb;not null;default:'{}'"`
@@ -30,7 +30,7 @@ type ApplAca struct {
 	Referee3       postgres.Jsonb `json:"referee3" gorm:"type:jsonb;not null;default:'{}'"`
 	Referee4       postgres.Jsonb `json:"referee4" gorm:"type:jsonb;not null;default:'{}'"`
 	IsComplete     bool           `json:"isComplete" gorm:"default:false"`
-	InstitutionID  string         `json:"institutionId" gorm:"type:UUID"`
+	InstitutionID  string         `json:"institutionId" gorm:"type:UUID;"`
 
 	BXXUpdatedFields []string `json:"-" gorm:"-"`
 }
