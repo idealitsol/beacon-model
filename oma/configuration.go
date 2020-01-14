@@ -47,3 +47,47 @@ func ConfigurationS2PTransformer(data Configuration) *pbx.Configuration {
 
 	return model
 }
+
+// ConfigurationsS2PTransformer transforms Configurations Struct which is array to Protobuf
+func ConfigurationsS2PTransformer(datas Configurations) []*pbx.Configuration {
+	models := []*pbx.Configuration{}
+
+	for _, data := range datas {
+		model := &pbx.Configuration{
+			Key:           data.Key,
+			Value:         data.Value,
+			InstitutionId: data.InstitutionID,
+
+			BXX_UpdatedFields: data.BXXUpdatedFields,
+		}
+		models = append(models, model)
+	}
+
+	// Handle pointers after this
+
+	return models
+}
+
+// ConfigurationsP2STransformer transforms Configurations which is array Protobuf to Struct
+func ConfigurationsP2STransformer(datas []*pbx.Configuration) Configurations {
+	models := Configurations{}
+	for _, data := range datas {
+		model := Configuration{
+			Value:         data.GetValue(),
+			InstitutionID: data.GetInstitutionId(),
+
+			BXXUpdatedFields: data.GetBXX_UpdatedFields(),
+		}
+
+		// If GetKey has no value then it's a POST request (Create)
+		if len(data.GetKey()) != 0 {
+			model.Key = data.GetKey()
+		}
+
+		models = append(models, model)
+	}
+
+	// Handle pointers after this
+
+	return models
+}
