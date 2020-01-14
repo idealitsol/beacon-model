@@ -34,7 +34,7 @@ func ConfigurationP2STransformer(data *pbx.Configuration) Configuration {
 }
 
 // ConfigurationS2PTransformer transforms Configuration Struct to Protobuf
-func ConfigurationS2PTransformer(data Configurations) *pbx.Configuration {
+func ConfigurationS2PTransformer(data Configuration) *pbx.Configuration {
 	model := &pbx.Configuration{
 		Key:           data.Key,
 		Value:         data.Value,
