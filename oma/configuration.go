@@ -4,7 +4,7 @@ import "github.com/idealitsol/beacon-proto/pbx"
 
 // Configuration database model
 type Configuration struct {
-	Key           string `json:"key" gorm:"not null"`
+	Key           string `json:"key" gorm:"primary_key;not null"`
 	Value         string `json:"value" gorm:""`
 	InstitutionID string `json:"institutionId" gorm:"type:UUID;"`
 
@@ -34,7 +34,7 @@ func ConfigurationP2STransformer(data *pbx.Configuration) Configuration {
 }
 
 // ConfigurationS2PTransformer transforms Configuration Struct to Protobuf
-func ConfigurationS2PTransformer(data Configuration) *pbx.Configuration {
+func ConfigurationS2PTransformer(data Configurations) *pbx.Configuration {
 	model := &pbx.Configuration{
 		Key:           data.Key,
 		Value:         data.Value,
