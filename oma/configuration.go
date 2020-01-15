@@ -4,9 +4,10 @@ import "github.com/idealitsol/beacon-proto/pbx"
 
 // Configuration database model
 type Configuration struct {
-	Key           string `json:"key" gorm:"primary_key;not null"`
+	Key           string `json:"key" gorm:"not null"`
 	Value         string `json:"value" gorm:""`
 	InstitutionID string `json:"institutionId" gorm:"type:UUID;"`
+	Visibility    string `json:"visibility" gorm:"type:varchar(10);not null;default:'private'"`
 
 	BXXUpdatedFields []string `json:"-" gorm:"-"`
 }
@@ -19,6 +20,7 @@ func ConfigurationP2STransformer(data *pbx.Configuration) Configuration {
 	model := Configuration{
 		Value:         data.GetValue(),
 		InstitutionID: data.GetInstitutionId(),
+		Visibility:    data.GetVisibility(),
 
 		BXXUpdatedFields: data.GetBXX_UpdatedFields(),
 	}
@@ -39,6 +41,7 @@ func ConfigurationS2PTransformer(data Configuration) *pbx.Configuration {
 		Key:           data.Key,
 		Value:         data.Value,
 		InstitutionId: data.InstitutionID,
+		Visibility:    data.Visibility,
 
 		BXX_UpdatedFields: data.BXXUpdatedFields,
 	}
@@ -56,6 +59,7 @@ func ConfigurationsS2PTransformer(datas Configurations) []*pbx.Configuration {
 		model := &pbx.Configuration{
 			Key:           data.Key,
 			Value:         data.Value,
+			Visibility:    data.Visibility,
 			InstitutionId: data.InstitutionID,
 
 			BXX_UpdatedFields: data.BXXUpdatedFields,
@@ -75,6 +79,7 @@ func ConfigurationsP2STransformer(datas []*pbx.Configuration) Configurations {
 		model := Configuration{
 			Value:         data.GetValue(),
 			InstitutionID: data.GetInstitutionId(),
+			Visibility:    data.GetVisibility(),
 
 			BXXUpdatedFields: data.GetBXX_UpdatedFields(),
 		}
