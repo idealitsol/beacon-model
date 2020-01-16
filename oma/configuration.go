@@ -4,7 +4,7 @@ import "github.com/idealitsol/beacon-proto/pbx"
 
 // Configuration database model
 type Configuration struct {
-	Key           string `json:"key" gorm:"not null"`
+	Key           string `json:"key" gorm:"primary_key"`
 	Value         string `json:"value" gorm:""`
 	InstitutionID string `json:"institutionId" gorm:"type:UUID;"`
 	Visibility    string `json:"visibility" gorm:"type:varchar(10);not null;default:'private'"`
