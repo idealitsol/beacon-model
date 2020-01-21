@@ -11,13 +11,15 @@ import (
 type Form struct {
 	ID            string         `json:"id" gorm:"type:UUID;primary_key;default:gen_random_uuid();size:36"`
 	Name          string         `json:"name" gorm:"not null"`
-	MachineName   string         `json:"machineName" gorm:""`
-	Description   string         `json:"description" gorm:""`
+	MachineName   string         `json:"machineName" gorm:"default:'100'"`
+	Description   string         `json:"description" gorm:"default:'255'"`
 	Status        bool           `json:"status" gorm:""`
-	Fields        postgres.Jsonb `json:"fields" gorm:"type:jsonb;not null"`
-	Display       postgres.Jsonb `json:"display" gorm:"type:jsonb;not null;default"`
+	Fields        postgres.Jsonb `json:"fields" gorm:"type:jsonb;default:'{}'"`
+	Display       postgres.Jsonb `json:"display" gorm:"type:jsonb;default:'{}'"`
 	IsSystem      bool           `json:"isSystem" gorm:""`
-	InstitutionID string         `json:"-" gorm:"type:UUID"`
+	InstitutionID string         `json:"institutionId" gorm:"type:UUID;"`
+	Groups        postgres.Jsonb `json:"groups" gorm:"type:jsonb;default:'{}'"`
+	Settings      postgres.Jsonb `json:"settings" gorm:"type:jsonb;default:'{}'"`
 
 	BXXUpdatedFields []string `json:"-" gorm:"-"`
 }
@@ -36,6 +38,8 @@ func FormP2STransformer(data *pbx.Form) Form {
 		Display:       postgres.Jsonb{json.RawMessage(data.GetDisplay())},
 		IsSystem:      data.GetIsSystem(),
 		InstitutionID: data.GetInstitutionId(),
+		Groups:        postgres.Jsonb{json.RawMessage(data.GetGroups())},
+		Settings:      postgres.Jsonb{json.RawMessage(data.GetSettings())},
 
 		BXXUpdatedFields: data.GetBXX_UpdatedFields(),
 	}
@@ -62,6 +66,8 @@ func FormS2PTransformer(data Form) *pbx.Form {
 		Display:       string(data.Display.RawMessage),
 		IsSystem:      data.IsSystem,
 		InstitutionId: data.InstitutionID,
+		Groups:        string(data.Groups.RawMessage),
+		Settings:      string(data.Settings.RawMessage),
 
 		BXX_UpdatedFields: data.BXXUpdatedFields,
 	}
