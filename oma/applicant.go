@@ -13,6 +13,29 @@ type Applicant struct {
 	InstitutionID string   `json:"institutionId" gorm:"type:UUID"`
 }
 
+// ApplicantAuthRequest is used to accept authentication request
+type ApplicantAuthRequest struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+	Type     string `json:"-"`
+
+	Domain   string `json:"-"`
+	Platform string `json:"-"`
+
+	OldPassword string `json:"oldPassword,omitempty"`
+	NewPassword string `json:"newPassword,omitempty"`
+}
+
+// ApplicantAuthResponse is response give back to authentication request
+type ApplicantAuthResponse struct {
+	Mesg           string      `json:"message"`
+	Token          string      `json:"token"`
+	UserID         string      `json:"userId"`
+	Roles          interface{} `json:"roles,omitempty"`
+	ForcePWDChange bool        `json:"forcePwdChange"`
+	Err            error       `json:"err,omitempty"`
+}
+
 // Applicants ..
 type Applicants []Applicant
 
