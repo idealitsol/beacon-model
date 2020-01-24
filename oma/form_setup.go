@@ -21,7 +21,7 @@ type FormSetup struct {
 	OpenDate       *time.Time     `json:"openDate"`
 	CloseDate      *time.Time     `json:"closeDate"`
 	InstitutionID  string         `json:"institutionId" gorm:"type:UUID"`
-	StepperID      string         `json:"stepperId" gorm:"type:UUID"`
+	FormSteps      postgres.Jsonb `json:"formSteps" gorm:"type:jsonb"`
 	Tags           postgres.Jsonb `json:"tags" gorm:"type:jsonb"`
 
 	BXXUpdatedFields []string `json:"-" gorm:"-"`
@@ -41,7 +41,7 @@ func FormSetupP2STransformer(data *pbx.FormSetup) FormSetup {
 		OpenDate:       util.GrpcTimeToGoTime(data.GetOpenDate()),
 		CloseDate:      util.GrpcTimeToGoTime(data.GetCloseDate()),
 		InstitutionID:  data.GetInstitutionId(),
-		StepperID:      data.GetStepperId(),
+		FormSteps:      postgres.Jsonb{json.RawMessage(data.GetFormSteps())},
 		Tags:           postgres.Jsonb{json.RawMessage(data.GetTags())},
 
 		BXXUpdatedFields: data.GetBXX_UpdatedFields(),
@@ -69,7 +69,7 @@ func FormSetupS2PTransformer(data FormSetup) *pbx.FormSetup {
 		OpenDate:       util.GoTimeToGrpcTime(data.OpenDate),
 		CloseDate:      util.GoTimeToGrpcTime(data.CloseDate),
 		InstitutionId:  data.InstitutionID,
-		StepperId:      data.StepperID,
+		FormSteps:      string(data.FormSteps.RawMessage),
 		Tags:           string(data.Tags.RawMessage),
 
 		BXX_UpdatedFields: data.BXXUpdatedFields,
