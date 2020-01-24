@@ -18,7 +18,7 @@ type Form struct {
 	Display       postgres.Jsonb `json:"display" gorm:"type:jsonb;default:'{}'"`
 	IsSystem      bool           `json:"isSystem" gorm:""`
 	InstitutionID string         `json:"institutionId" gorm:"type:UUID;"`
-	Groups        postgres.Jsonb `json:"groups" gorm:"type:jsonb;default:'{}'"`
+	Groups        postgres.Jsonb `json:"groups" gorm:"type:jsonb;default:'[]'"`
 	Settings      postgres.Jsonb `json:"settings" gorm:"type:jsonb;default:'{}'"`
 
 	BXXUpdatedFields []string `json:"-" gorm:"-"`
