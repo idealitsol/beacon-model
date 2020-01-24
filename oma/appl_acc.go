@@ -8,17 +8,22 @@ import (
 )
 
 // ApplAcc database model
+// ApplAcc database model
 type ApplAcc struct {
 	ID            string     `json:"id" gorm:"type:UUID;primary_key;default:gen_random_uuid();size:36"`
 	ApplYear      int32      `json:"applYear" gorm:""`
-	Username      string     `json:"username" gorm:"type:varchar(20);not null"`
-	Password      string     `json:"password" gorm:"type:varchar(50);not null"`
+	Username      string     `json:"username" gorm:"type:varchar(30);not null"`
+	Password      string     `json:"password" gorm:"not null"`
 	CreatedAt     *time.Time `json:"createdAt"`
 	UpdatedAt     *time.Time `json:"updatedAt"`
 	LastLogin     *time.Time `json:"lastLogin"`
-	SelectedForm  string     `json:"selectedForm" gorm:"type:UUID"`
-	InstitutionID string     `json:"-" gorm:"type:UUID"`
+	SelectedForm  string     `json:"selectedForm" gorm:"type:UUID;"`
+	InstitutionID string     `json:"institutionId" gorm:"type:UUID;"`
 	IsComplete    bool       `json:"isComplete" gorm:"default:false"`
+	Sname         string     `json:"sname" gorm:"type:varchar(40)"`
+	Fname         string     `json:"fname" gorm:"type:varchar(60)"`
+	Oname         string     `json:"oname" gorm:"type:varchar(30)"`
+	LoginType     string     `json:"loginType" gorm:"type:varchar(10)"`
 
 	BXXUpdatedFields []string `json:"-" gorm:"-"`
 }
@@ -38,6 +43,10 @@ func ApplAccP2STransformer(data *pbx.ApplAcc) ApplAcc {
 		SelectedForm:  data.GetSelectedForm(),
 		InstitutionID: data.GetInstitutionId(),
 		IsComplete:    data.GetIsComplete(),
+		Sname:         data.GetSname(),
+		Fname:         data.GetFname(),
+		Oname:         data.GetOname(),
+		LoginType:     data.GetLoginType(),
 
 		BXXUpdatedFields: data.GetBXX_UpdatedFields(),
 	}
@@ -65,6 +74,10 @@ func ApplAccS2PTransformer(data ApplAcc) *pbx.ApplAcc {
 		SelectedForm:  data.SelectedForm,
 		InstitutionId: data.InstitutionID,
 		IsComplete:    data.IsComplete,
+		Sname:         data.Sname,
+		Fname:         data.Fname,
+		Oname:         data.Oname,
+		LoginType:     data.LoginType,
 
 		BXX_UpdatedFields: data.BXXUpdatedFields,
 	}
