@@ -21,8 +21,9 @@ type FormSetup struct {
 	OpenDate       *time.Time     `json:"openDate"`
 	CloseDate      *time.Time     `json:"closeDate"`
 	InstitutionID  string         `json:"institutionId" gorm:"type:UUID"`
-	FormSteps      postgres.Jsonb `json:"formSteps" gorm:"type:jsonb"`
-	Tags           postgres.Jsonb `json:"tags" gorm:"type:jsonb"`
+	FormSteps      postgres.Jsonb `json:"formSteps" gorm:"type:jsonb;default:'[]'"`
+	Tags           postgres.Jsonb `json:"tags" gorm:"type:jsonb;default:'[]'"`
+	IsLinear       bool           `json:"isLinear" gorm:""`
 
 	BXXUpdatedFields []string `json:"-" gorm:"-"`
 }
@@ -43,6 +44,7 @@ func FormSetupP2STransformer(data *pbx.FormSetup) FormSetup {
 		InstitutionID:  data.GetInstitutionId(),
 		FormSteps:      postgres.Jsonb{json.RawMessage(data.GetFormSteps())},
 		Tags:           postgres.Jsonb{json.RawMessage(data.GetTags())},
+		IsLinear:       data.GetIsLinear(),
 
 		BXXUpdatedFields: data.GetBXX_UpdatedFields(),
 	}
@@ -71,6 +73,7 @@ func FormSetupS2PTransformer(data FormSetup) *pbx.FormSetup {
 		InstitutionId:  data.InstitutionID,
 		FormSteps:      string(data.FormSteps.RawMessage),
 		Tags:           string(data.Tags.RawMessage),
+		IsLinear:       data.IsLinear,
 
 		BXX_UpdatedFields: data.BXXUpdatedFields,
 	}
