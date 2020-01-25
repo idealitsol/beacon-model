@@ -15,9 +15,9 @@ type Applicant struct {
 
 // ApplicantAuthRequest is used to accept authentication request
 type ApplicantAuthRequest struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-	Type     string `json:"-"`
+	Username  string `json:"username"`
+	Password  string `json:"password"`
+	LoginType string `json:"loginType"`
 
 	Domain   string `json:"-"`
 	Platform string `json:"-"`
