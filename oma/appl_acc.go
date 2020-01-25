@@ -1,11 +1,18 @@
 package oma
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/idealitsol/beacon-proto/pbx"
 	util "github.com/idealitsol/beacon-util"
 	"github.com/jinzhu/gorm"
+)
+
+const (
+	PayAfter  = "payAfter"
+	PayBefore = "payBefore"
+	Open      = "open"
 )
 
 // ApplAcc database model
@@ -34,6 +41,10 @@ type ApplAccs []ApplAcc
 
 // BeforeCreate hook
 func (o *ApplAcc) BeforeCreate(scope *gorm.Scope) error {
+	if valid, err := o.validate(); !valid {
+		return err
+	}
+
 	scope.SetColumn("Password", util.HashAndSalt([]byte(o.Password)))
 	return nil
 }
@@ -92,4 +103,24 @@ func ApplAccS2PTransformer(data ApplAcc) *pbx.ApplAcc {
 	// Handle pointers after this
 
 	return model
+}
+
+func (o *ApplAcc) validate() (bool, error) {
+	if len(o.Username) == 0 {
+		return false, fmt.Errorf("Username is required")
+	}
+
+	if len(o.Password) == 0 {
+		return false, fmt.Errorf("Password is required")
+	}
+
+	/* Validate login Type */
+	if len(o.LoginType) == 0 {
+		return false, fmt.Errorf("Login type required")
+	}
+	if o.LoginType != PayAfter && o.LoginType != PayBefore && o.LoginType != Open {
+		return false, fmt.Errorf("Invalid login type provided")
+	}
+
+	return true, nil
 }
