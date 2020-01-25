@@ -8,13 +8,14 @@ type AuthRequest struct {
 	Domain   string `json:"-"`
 	Platform string `json:"-"`
 
-	OldPassword string `json:"oldPassword,omitempty"`
-	NewPassword string `json:"newPassword,omitempty"`
+	Option      map[string]interface{} `json:"option,omitempty"`
+	OldPassword string                 `json:"oldPassword,omitempty"`
+	NewPassword string                 `json:"newPassword,omitempty"`
 }
 
 type AuthResponse struct {
 	Mesg           string      `json:"message"`
-	Token         string      `json:"token"`
+	Token          string      `json:"token"`
 	UserID         string      `json:"userId"`
 	Roles          interface{} `json:"roles,omitempty"`
 	ForcePWDChange bool        `json:"forcePwdChange"`
