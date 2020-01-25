@@ -5,6 +5,7 @@ import (
 
 	"github.com/idealitsol/beacon-proto/pbx"
 	util "github.com/idealitsol/beacon-util"
+	"github.com/jinzhu/gorm"
 )
 
 // ApplAcc database model
@@ -30,6 +31,12 @@ type ApplAcc struct {
 
 // ApplAccs is an array of ApplAcc objects
 type ApplAccs []ApplAcc
+
+// BeforeCreate hook
+func (o *ApplAcc) BeforeCreate(scope *gorm.Scope) error {
+	scope.SetColumn("Password", util.HashAndSalt([]byte(o.Password)))
+	return nil
+}
 
 // ApplAccP2STransformer transforms ApplAcc Protobuf to Struct
 func ApplAccP2STransformer(data *pbx.ApplAcc) ApplAcc {
