@@ -13,6 +13,9 @@ import (
 // Model Constants
 const (
 	uniqueConstraintUsername = "uix_auth_user_username"
+	PayBefore                = "payBefore"
+	PayAfter                 = "payAfter"
+	Open                     = "open"
 )
 
 // OmaClientUser database model
@@ -44,6 +47,7 @@ type OmaClientUser struct {
 	Verified          int32      `json:"-" gorm:";default:-1"`
 	VerificationToken string     `json:"-" gorm:""`
 	VerificationType  string     `json:"-" gorm:"type:varchar(4)"`
+	LoginType         string     `json:"-" gorm:"type:varchar(10)"`
 
 	BXXUpdatedFields []string `json:"-" gorm:"-"`
 }
@@ -79,6 +83,10 @@ func (o *OmaClientUser) validate() (bool, error) {
 
 	if len(o.Fullname) == 0 {
 		return false, fmt.Errorf("Fullname is required")
+	}
+
+	if o.LoginType != PayBefore && o.LoginType != PayAfter && o.LoginType != Open {
+		return false, fmt.Errorf("Invalid login type provided")
 	}
 
 	return true, nil
@@ -137,6 +145,7 @@ func OmaClientUserP2STransformer(data *pbx.OmaClientUser) OmaClientUser {
 		Verified:          int32(data.GetVerified()),
 		VerificationToken: data.GetVerificationToken(),
 		VerificationType:  data.GetVerificationType(),
+		LoginType:         data.GetLoginType(),
 
 		BXXUpdatedFields: data.GetBXX_UpdatedFields(),
 	}
@@ -181,6 +190,7 @@ func OmaClientUserS2PTransformer(data OmaClientUser) *pbx.OmaClientUser {
 		Verified:          int32(data.Verified),
 		VerificationToken: data.VerificationToken,
 		VerificationType:  data.VerificationType,
+		LoginType:         data.LoginType,
 
 		BXX_UpdatedFields: data.BXXUpdatedFields,
 	}
