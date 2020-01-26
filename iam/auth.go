@@ -8,9 +8,9 @@ type AuthRequest struct {
 	Domain   string `json:"-"`
 	Platform string `json:"-"`
 
-	Option      map[string]interface{} `json:"option,omitempty"`
-	OldPassword string                 `json:"oldPassword,omitempty"`
-	NewPassword string                 `json:"newPassword,omitempty"`
+	Option      map[string]string `json:"option,omitempty"`
+	OldPassword string            `json:"oldPassword,omitempty"`
+	NewPassword string            `json:"newPassword,omitempty"`
 }
 
 type AuthResponse struct {
