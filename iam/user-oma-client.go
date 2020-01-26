@@ -19,31 +19,31 @@ const (
 type OmaClientUser struct {
 	ID                string     `json:"id" gorm:"type:UUID;primary_key;default:gen_random_uuid();size:36"`
 	Username          string     `json:"username" gorm:"type:varchar(30);not null"`
-	Password          string     `json:"password" gorm:"not null"`
+	Password          string     `json:"-" gorm:"not null"`
 	Fullname          string     `json:"fullname" gorm:"type:varchar(200);not null"`
-	Email             string     `json:"email" gorm:"type:varchar(100)"`
-	AccountAccess     bool       `json:"accountAccess" gorm:"default:true"`
-	LoginPassCount    int32      `json:"loginPassCount" gorm:"default:(0)"`
+	Email             string     `json:"-" gorm:"type:varchar(100)"`
+	AccountAccess     bool       `json:"-" gorm:"default:true"`
+	LoginPassCount    int32      `json:"-" gorm:"default:(0)"`
 	LastLogin         *time.Time `json:"lastLogin"`
-	AccountExpiry     *time.Time `json:"accountExpiry"`
+	AccountExpiry     *time.Time `json:"-"`
 	Photo             string     `json:"photo" gorm:""`
-	PwdExpiry         bool       `json:"pwdExpiry" gorm:"default:false"`
-	PwdExpiryTime     *time.Time `json:"pwdExpiryTime"`
-	PwdLifeInDays     int32      `json:"pwdLifeInDays" gorm:";default:(0)"`
-	CreatedBy         string     `json:"createdBy" gorm:""`
-	UpdatedBy         string     `json:"updatedBy" gorm:""`
-	DeletedBy         string     `json:"deletedBy" gorm:""`
-	CreatedAt         *time.Time `json:"createdAt"`
-	UpdatedAt         *time.Time `json:"updatedAt"`
-	DeletedAt         *time.Time `json:"deletedAt"`
-	Pin               string     `json:"pin" gorm:"type:varchar(4)"`
-	ForcePwdChange    bool       `json:"forcePwdChange" gorm:"default:false"`
-	LoginFailCount    int32      `json:"loginFailCount" gorm:"default:0"`
-	LoginCounter      int32      `json:"loginCounter" gorm:"default:0"`
+	PwdExpiry         bool       `json:"-" gorm:"default:false"`
+	PwdExpiryTime     *time.Time `json:"-"`
+	PwdLifeInDays     int32      `json:"-" gorm:";default:(0)"`
+	CreatedBy         string     `json:"-" gorm:""`
+	UpdatedBy         string     `json:"-" gorm:""`
+	DeletedBy         string     `json:"-" gorm:""`
+	CreatedAt         *time.Time `json:"-"`
+	UpdatedAt         *time.Time `json:"-"`
+	DeletedAt         *time.Time `json:"-"`
+	Pin               string     `json:"-" gorm:"type:varchar(4)"`
+	ForcePwdChange    bool       `json:"-" gorm:"default:false"`
+	LoginFailCount    int32      `json:"-" gorm:"default:0"`
+	LoginCounter      int32      `json:"-" gorm:"default:0"`
 	InstitutionID     string     `json:"institutionId" gorm:"type:UUID;"`
-	Verified          int32      `json:"verified" gorm:";default:-1"`
-	VerificationToken string     `json:"verificationToken" gorm:""`
-	VerificationType  string     `json:"verificationType" gorm:"type:varchar(4)"`
+	Verified          int32      `json:"-" gorm:";default:-1"`
+	VerificationToken string     `json:"-" gorm:""`
+	VerificationType  string     `json:"-" gorm:"type:varchar(4)"`
 
 	BXXUpdatedFields []string `json:"-" gorm:"-"`
 }
