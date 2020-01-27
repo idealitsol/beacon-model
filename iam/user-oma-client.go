@@ -69,6 +69,10 @@ func (o *OmaClientUser) BeforeCreate(scope *gorm.Scope) error {
 }
 
 func (o *OmaClientUser) validate() (bool, error) {
+	if o.LoginType != PayBefore && o.LoginType != PayAfter && o.LoginType != Open {
+		return false, fmt.Errorf("Invalid login type provided")
+	}
+
 	if len(o.Username) == 0 {
 		return false, fmt.Errorf("Username is required")
 	}
@@ -81,12 +85,8 @@ func (o *OmaClientUser) validate() (bool, error) {
 	// 	return false, fmt.Errorf("Email is required")
 	// }
 
-	if len(o.Fullname) == 0 {
+	if len(o.Fullname) == 0 && o.LoginType != PayBefore {
 		return false, fmt.Errorf("Fullname is required")
-	}
-
-	if o.LoginType != PayBefore && o.LoginType != PayAfter && o.LoginType != Open {
-		return false, fmt.Errorf("Invalid login type provided")
 	}
 
 	return true, nil
