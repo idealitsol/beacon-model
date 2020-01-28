@@ -6,11 +6,11 @@ import (
 
 // Applicant ..
 type Applicant struct {
-	ID            string   `json:"id"`
-	AccountInfo   *ApplAcc `json:"accountInfo"`
-	BioData       *ApplBio `json:"bioData"`
-	AcademicInfo  *ApplAca `json:"academicInfo"`
-	InstitutionID string   `json:"institutionId" gorm:"type:UUID"`
+	ID            string    `json:"id"`
+	MainData      *ApplMain `json:"mainData"`
+	BioData       *ApplBio  `json:"bioData"`
+	AcademicInfo  *ApplAca  `json:"academicInfo"`
+	InstitutionID string    `json:"institutionId" gorm:"type:UUID"`
 }
 
 // ApplicantAuthRequest is used to accept authentication request
@@ -48,11 +48,11 @@ func ApplicantP2STransformer(data *pbx.Applicant) Applicant {
 		model.ID = data.GetId()
 	}
 
-	if data.GetAccountInfo() != nil {
-		data.AccountInfo.Id = model.ID
+	if data.GetMainData() != nil {
+		data.MainData.Id = model.ID
 
-		accountInfo := ApplAccP2STransformer(data.GetAccountInfo())
-		model.AccountInfo = &accountInfo
+		mainData := ApplMainP2STransformer(data.GetMainData())
+		model.MainData = &mainData
 	}
 
 	if data.GetBioData() != nil {
@@ -77,8 +77,8 @@ func ApplicantS2PTransformer(data Applicant) *pbx.Applicant {
 	model := &pbx.Applicant{}
 
 	model.Id = data.ID
-	if data.AccountInfo != nil {
-		model.AccountInfo = ApplAccS2PTransformer(*data.AccountInfo)
+	if data.MainData != nil {
+		model.MainData = ApplMainS2PTransformer(*data.MainData)
 	}
 
 	if data.BioData != nil {
