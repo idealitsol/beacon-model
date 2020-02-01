@@ -14,10 +14,11 @@ type AuthRequest struct {
 }
 
 type AuthResponse struct {
-	Mesg           string      `json:"message"`
-	Token          string      `json:"token"`
-	UserID         string      `json:"userId"`
-	Roles          interface{} `json:"roles,omitempty"`
-	ForcePWDChange bool        `json:"forcePwdChange"`
-	Err            error       `json:"err,omitempty"`
+	Mesg           string                 `json:"message"`
+	Token          string                 `json:"token"`
+	UserID         string                 `json:"userId"`
+	Roles          interface{}            `json:"roles,omitempty"`
+	ForcePWDChange bool                   `json:"forcePwdChange"`
+	Err            error                  `json:"err,omitempty"`
+	Meta           map[string]interface{} `json:"-"`
 }
