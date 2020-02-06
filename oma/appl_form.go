@@ -9,10 +9,11 @@ import (
 
 // ApplForm database model
 type ApplForm struct {
-	ApplicantID string     `json:"applicantId" gorm:"type:UUID;primary_key;size:36"`
-	FormID      string     `json:"formId" gorm:"type:UUID;primary_key;size:36"`
-	CreatedAt   *time.Time `json:"createdAt"`
-	UpdatedAt   *time.Time `json:"updatedAt"`
+	ApplicantID   string     `json:"applicantId" gorm:"type:UUID;primary_key;size:36"`
+	FormID        string     `json:"formId" gorm:"type:UUID;primary_key;size:36"`
+	InstitutionID string     `json:"institutionId" gorm:"type:UUID;primary_key;size:36"`
+	CreatedAt     *time.Time `json:"createdAt"`
+	UpdatedAt     *time.Time `json:"updatedAt"`
 
 	BXXUpdatedFields []string `json:"-" gorm:"-"`
 }
@@ -34,8 +35,14 @@ func ApplFormP2STransformer(data *pbx.ApplForm) ApplForm {
 		model.ApplicantID = data.GetApplicantId()
 	}
 
+	// If GetFormId has no value then it's a POST request (Create)
 	if len(data.GetFormId()) != 0 {
 		model.FormID = data.GetFormId()
+	}
+
+	// If GetInstitutionId has no value then it's a POST request (Create)
+	if len(data.GetInstitutionId()) != 0 {
+		model.InstitutionID = data.GetInstitutionId()
 	}
 
 	// Handle pointers after this
@@ -46,10 +53,11 @@ func ApplFormP2STransformer(data *pbx.ApplForm) ApplForm {
 // ApplFormS2PTransformer transforms ApplForm Struct to Protobuf
 func ApplFormS2PTransformer(data ApplForm) *pbx.ApplForm {
 	model := &pbx.ApplForm{
-		ApplicantId: data.ApplicantID,
-		FormId:      data.FormID,
-		CreatedAt:   util.GoTimeToGrpcTime(data.CreatedAt),
-		UpdatedAt:   util.GoTimeToGrpcTime(data.UpdatedAt),
+		ApplicantId:   data.ApplicantID,
+		FormId:        data.FormID,
+		InstitutionId: data.InstitutionID,
+		CreatedAt:     util.GoTimeToGrpcTime(data.CreatedAt),
+		UpdatedAt:     util.GoTimeToGrpcTime(data.UpdatedAt),
 
 		BXX_UpdatedFields: data.BXXUpdatedFields,
 	}
