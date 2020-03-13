@@ -65,6 +65,8 @@ github.com/hashicorp/hcl v1.0.0/go.mod h1:E5yfLk+7swimpb2L/Alb/PJmXilQ/rhwaUYs4T
 github.com/hpcloud/tail v1.0.0/go.mod h1:ab1qPbhIpdTxEkNHXyeSf5vhxWSCs/tWer42PpOxQnU=
 github.com/idealitsol/beacon-proto v0.1.4 h1:/o18NPYyfgtBKs+L8kgId39wLXX8DUu0tVUl4dO+Toc=
 github.com/idealitsol/beacon-proto v0.1.4/go.mod h1:R6gE9N27wI/UhjVFA3mT/uUJC8n4LS5zq9eCCg85yPU=
+github.com/idealitsol/beacon-proto v0.1.5 h1:vqT3bJfvMUOXArU09he2TtsQttJYfiuZIJI4iTEvmfc=
+github.com/idealitsol/beacon-proto v0.1.5/go.mod h1:R6gE9N27wI/UhjVFA3mT/uUJC8n4LS5zq9eCCg85yPU=
 github.com/idealitsol/beacon-util v0.0.22 h1:zFxao9micXxmDbCVt0OtETbGI/xPZnvIOktXbsXvao8=
 github.com/idealitsol/beacon-util v0.0.22/go.mod h1:EpxthAMEUDkLf5YeSzOG6V6RQSyNFxOi3xoLdEvMkTM=
 github.com/jinzhu/gorm v1.9.8 h1:n5uvxqLepIP2R1XF7pudpt9Rv8I3m7G9trGxJVjLZ5k=

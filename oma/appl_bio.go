@@ -39,7 +39,8 @@ type ApplBio struct {
 	Country           string         `json:"country" gorm:"type:varchar(20);not null"`
 	IsComplete        bool           `json:"isComplete" gorm:"default:false"`
 	EmergencyContact  postgres.Jsonb `json:"emergencyContact" gorm:"type:jsonb;default:'{}'"`
-	InstitutionID     string         `json:"-" gorm:"type:UUID"`
+	InstitutionID     string         `json:"-" gorm:"type:UUID;"`
+	Photo             string         `json:"photo" gorm:"type:UUID;"`
 
 	BXXUpdatedFields []string `json:"-" gorm:"-"`
 }
@@ -86,6 +87,7 @@ func ApplBioP2STransformer(data *pbx.ApplBio) ApplBio {
 		IsComplete:        data.GetIsComplete(),
 		EmergencyContact:  postgres.Jsonb{json.RawMessage(data.GetEmergencyContact())},
 		InstitutionID:     data.GetInstitutionId(),
+		Photo:             data.GetPhoto(),
 
 		BXXUpdatedFields: data.GetBXX_UpdatedFields(),
 	}
@@ -131,6 +133,7 @@ func ApplBioS2PTransformer(data ApplBio) *pbx.ApplBio {
 		IsComplete:        data.IsComplete,
 		EmergencyContact:  string(data.EmergencyContact.RawMessage),
 		InstitutionId:     data.InstitutionID,
+		Photo:             data.Photo,
 
 		BXX_UpdatedFields: data.BXXUpdatedFields,
 	}

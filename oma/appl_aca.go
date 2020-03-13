@@ -16,14 +16,10 @@ type ApplAca struct {
 	LastSchool     string         `json:"lastSchool" gorm:"type:UUID;default:'00000000-0000-0000-0000-000000000000'"`
 	SchStartDate   *time.Time     `json:"schStartDate"`
 	SchEndDate     *time.Time     `json:"schEndDate"`
-	StudyCampus    string         `json:"studyCampus" gorm:"type:UUID;default:'00000000-0000-0000-0000-000000000000'"`
-	StudyCenter    string         `json:"studyCenter" gorm:"type:UUID;default:'00000000-0000-0000-0000-000000000000'"`
-	ProgChoice     postgres.Jsonb `json:"progChoice" gorm:"type:jsonb;not null;default:'[]'"`
-	FeePaying      bool           `json:"feePaying" gorm:"default:false"`
-	GradResTopic   string         `json:"gradResTopic" gorm:"type:varchar(1000)"`
 	Referee        postgres.Jsonb `json:"referee" gorm:"type:jsonb;not null;default:'[]'"`
 	IsComplete     bool           `json:"isComplete" gorm:"default:false"`
 	InstitutionID  string         `json:"institutionId" gorm:"type:UUID;"`
+	Attachment     postgres.Jsonb `json:"attachment" gorm:"type:jsonb;not null;default:'{}'"`
 
 	BXXUpdatedFields []string `json:"-" gorm:"-"`
 }
@@ -38,14 +34,10 @@ func ApplAcaP2STransformer(data *pbx.ApplAca) ApplAca {
 		LastSchool:     data.GetLastSchool(),
 		SchStartDate:   util.GrpcTimeToGoTime(data.GetSchStartDate()),
 		SchEndDate:     util.GrpcTimeToGoTime(data.GetSchEndDate()),
-		StudyCampus:    data.GetStudyCampus(),
-		StudyCenter:    data.GetStudyCenter(),
-		ProgChoice:     postgres.Jsonb{json.RawMessage(data.GetProgChoice())},
-		FeePaying:      data.GetFeePaying(),
-		GradResTopic:   data.GetGradResTopic(),
 		Referee:        postgres.Jsonb{json.RawMessage(data.GetReferee())},
 		IsComplete:     data.GetIsComplete(),
 		InstitutionID:  data.GetInstitutionId(),
+		Attachment:     postgres.Jsonb{json.RawMessage(data.GetAttachment())},
 
 		BXXUpdatedFields: data.GetBXX_UpdatedFields(),
 	}
@@ -68,14 +60,10 @@ func ApplAcaS2PTransformer(data ApplAca) *pbx.ApplAca {
 		LastSchool:     data.LastSchool,
 		SchStartDate:   util.GoTimeToGrpcTime(data.SchStartDate),
 		SchEndDate:     util.GoTimeToGrpcTime(data.SchEndDate),
-		StudyCampus:    data.StudyCampus,
-		StudyCenter:    data.StudyCenter,
-		ProgChoice:     string(data.ProgChoice.RawMessage),
-		FeePaying:      data.FeePaying,
-		GradResTopic:   data.GradResTopic,
 		Referee:        string(data.Referee.RawMessage),
 		IsComplete:     data.IsComplete,
 		InstitutionId:  data.InstitutionID,
+		Attachment:     string(data.Attachment.RawMessage),
 
 		BXX_UpdatedFields: data.BXXUpdatedFields,
 	}
