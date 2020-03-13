@@ -67,6 +67,8 @@ github.com/idealitsol/beacon-proto v0.1.6 h1:+BptX9PSR78NBmtgM22wszmPG+B09VWw0cB
 github.com/idealitsol/beacon-proto v0.1.6/go.mod h1:R6gE9N27wI/UhjVFA3mT/uUJC8n4LS5zq9eCCg85yPU=
 github.com/idealitsol/beacon-util v0.0.22 h1:zFxao9micXxmDbCVt0OtETbGI/xPZnvIOktXbsXvao8=
 github.com/idealitsol/beacon-util v0.0.22/go.mod h1:EpxthAMEUDkLf5YeSzOG6V6RQSyNFxOi3xoLdEvMkTM=
+github.com/idealitsol/beacon-util v0.0.23 h1:E6cdv+J/mOYw/c3TATw3Y7/xLrywqAXT9eqTXqquVi0=
+github.com/idealitsol/beacon-util v0.0.23/go.mod h1:EpxthAMEUDkLf5YeSzOG6V6RQSyNFxOi3xoLdEvMkTM=
 github.com/jinzhu/gorm v1.9.8 h1:n5uvxqLepIP2R1XF7pudpt9Rv8I3m7G9trGxJVjLZ5k=
 github.com/jinzhu/gorm v1.9.8/go.mod h1:bdqTT3q6dhSph2K3pWxrHP6nqxuAp2yQ3KFtc3U3F84=
 github.com/jinzhu/gorm v1.9.10/go.mod h1:Kh6hTsSGffh4ui079FHrR5Gg+5D0hgihqDcsDN2BBJY=

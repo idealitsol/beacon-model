@@ -6,6 +6,7 @@ import (
 
 	"github.com/idealitsol/beacon-proto/pbx"
 	util "github.com/idealitsol/beacon-util"
+	"github.com/jinzhu/gorm"
 	"github.com/jinzhu/gorm/dialects/postgres"
 )
 
@@ -26,6 +27,19 @@ type ApplAca struct {
 
 // ApplAcas is an array of ApplAca objects
 type ApplAcas []ApplAca
+
+// BeforeCreate hook   http://gorm.io/docs/hooks.html
+func (o *ApplAca) BeforeCreate(scope *gorm.Scope) error {
+	// if valid, err := o.validate(); !valid {
+	// 	return err
+	// }
+
+	if len(o.LastSchool) == 0 {
+		o.LastSchool = util.DefaultUUID
+	}
+
+	return nil
+}
 
 // ApplAcaP2STransformer transforms ApplAca Protobuf to Struct
 func ApplAcaP2STransformer(data *pbx.ApplAca) ApplAca {

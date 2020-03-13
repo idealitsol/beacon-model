@@ -54,6 +54,10 @@ func (o *ApplBio) BeforeCreate(scope *gorm.Scope) error {
 	// 	return err
 	// }
 
+	if len(o.Photo) == 0 {
+		o.Photo = util.DefaultUUID
+	}
+
 	return nil
 }
 

@@ -6,6 +6,7 @@ import (
 
 	"github.com/idealitsol/beacon-proto/pbx"
 	util "github.com/idealitsol/beacon-util"
+	"github.com/jinzhu/gorm"
 	"github.com/jinzhu/gorm/dialects/postgres"
 )
 
@@ -30,6 +31,31 @@ type ApplForm struct {
 
 // ApplForms is an array of ApplForm objects
 type ApplForms []ApplForm
+
+// BeforeCreate hook   http://gorm.io/docs/hooks.html
+func (o *ApplForm) BeforeCreate(scope *gorm.Scope) error {
+	// if valid, err := o.validate(); !valid {
+	// 	return err
+	// }
+
+	if len(o.StudyCampus) == 0 {
+		o.StudyCampus = util.DefaultUUID
+	}
+	if len(o.StudyCenter) == 0 {
+		o.StudyCenter = util.DefaultUUID
+	}
+	if len(o.EntryMode) == 0 {
+		o.EntryMode = util.DefaultUUID
+	}
+	if len(o.EntryType) == 0 {
+		o.EntryType = util.DefaultUUID
+	}
+	if len(o.Classification) == 0 {
+		o.Classification = util.DefaultUUID
+	}
+
+	return nil
+}
 
 // ApplFormP2STransformer transforms ApplForm Protobuf to Struct
 func ApplFormP2STransformer(data *pbx.ApplForm) ApplForm {
