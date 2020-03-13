@@ -11,6 +11,7 @@ type Applicant struct {
 	MainData      *ApplMain `json:"mainData"`
 	BioData       *ApplBio  `json:"bioData"`
 	AcademicInfo  *ApplAca  `json:"academicInfo"`
+	FormData      *ApplForm `json:"formData"`
 	InstitutionID string    `json:"institutionId" gorm:"type:UUID"`
 }
 
@@ -49,10 +50,6 @@ func ApplicantP2STransformer(data *pbx.Applicant) Applicant {
 		model.ID = data.GetId()
 	}
 
-	if len(data.GetFormId()) != 0 {
-		model.FormID = data.GetFormId()
-	}
-
 	if data.GetMainData() != nil {
 		data.MainData.Id = model.ID
 
@@ -74,6 +71,14 @@ func ApplicantP2STransformer(data *pbx.Applicant) Applicant {
 		model.AcademicInfo = &academicInfo
 	}
 
+	if data.GetFormData() != nil {
+		data.FormData.ApplicantId = model.ID
+		data.FormData.InstitutionId = model.InstitutionID
+
+		formData := ApplFormP2STransformer(data.GetFormData())
+		model.FormData = &formData
+	}
+
 	return model
 }
 
@@ -93,6 +98,10 @@ func ApplicantS2PTransformer(data Applicant) *pbx.Applicant {
 
 	if data.AcademicInfo != nil {
 		model.AcademicInfo = ApplAcaS2PTransformer(*data.AcademicInfo)
+	}
+
+	if data.FormData != nil {
+		model.FormData = ApplFormS2PTransformer(*data.FormData)
 	}
 
 	return model
