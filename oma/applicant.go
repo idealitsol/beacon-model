@@ -7,7 +7,6 @@ import (
 // Applicant ..
 type Applicant struct {
 	ID            string    `json:"id"`
-	FormID        string    `json:"formId"`
 	MainData      *ApplMain `json:"mainData"`
 	BioData       *ApplBio  `json:"bioData"`
 	AcademicInfo  *ApplAca  `json:"academicInfo"`
@@ -87,7 +86,6 @@ func ApplicantS2PTransformer(data Applicant) *pbx.Applicant {
 	model := &pbx.Applicant{}
 
 	model.Id = data.ID
-	model.FormId = data.FormID
 	if data.MainData != nil {
 		model.MainData = ApplMainS2PTransformer(*data.MainData)
 	}
