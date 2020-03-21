@@ -106,8 +106,6 @@ func ExternalExamS2PTransformer(data ExternalExam) *pbx.ExternalExam {
 	return model
 }
 
-func 
-
 func (o *ExternalExam) validate() (bool, error) {
 
 	return true, nil
