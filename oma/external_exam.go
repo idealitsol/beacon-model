@@ -12,14 +12,15 @@ import (
 
 // ExternalExam database model
 type ExternalExam struct {
-	ID          string         `json:"id" gorm:"type:UUID;primary_key;size:36"`
-	ApplicantID string         `json:"applicantId" gorm:"type:UUID;"`
-	WaecExam    postgres.Jsonb `json:"waecExam" gorm:"type:jsonb;default:'{}'"`
-	NonWaecExam postgres.Jsonb `json:"nonWaecExam" gorm:"type:jsonb;default:'{}'"`
-	Verified    bool           `json:"verified" gorm:"default:false"`
-	VerifiedBy  string         `json:"verifiedBy" gorm:"type:varchar(100);not null;default:''''''"`
-	CreatedAt   *time.Time     `json:"createdAt"`
-	UpdatedAt   *time.Time     `json:"updatedAt"`
+	ID            string         `json:"id" gorm:"type:UUID;primary_key;size:36"`
+	ApplicantID   string         `json:"applicantId" gorm:"type:UUID;"`
+	WaecExam      postgres.Jsonb `json:"waecExam" gorm:"type:jsonb;default:'{}'"`
+	NonWaecExam   postgres.Jsonb `json:"nonWaecExam" gorm:"type:jsonb;default:'{}'"`
+	Verified      bool           `json:"verified" gorm:"default:false"`
+	VerifiedBy    string         `json:"verifiedBy" gorm:"type:varchar(100);not null;default:''''''"`
+	CreatedAt     *time.Time     `json:"createdAt"`
+	UpdatedAt     *time.Time     `json:"updatedAt"`
+	InstitutionID string         `json:"-" gorm:"type:UUID"`
 
 	BXXUpdatedFields []string `json:"-" gorm:"-"`
 }
