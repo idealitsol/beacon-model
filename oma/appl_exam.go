@@ -16,8 +16,8 @@ import (
 
 var validate *validator.Validate
 
-// ExternalExam database model
-type ExternalExam struct {
+// ApplExam database model
+type ApplExam struct {
 	ApplicantID   string         `json:"applicantId" gorm:"type:UUID;;primary_key" validate:"required"`
 	WaecExam      postgres.Jsonb `json:"waecExams" gorm:"type:jsonb;default:'{}'"`
 	NonWaecExam   postgres.Jsonb `json:"nonWaecExams" gorm:"type:jsonb;default:'{}'"`
@@ -59,11 +59,11 @@ type NonWaecExam struct {
 	AttendTo               *time.Time `json:"attendTo"`
 }
 
-// ExternalExams is an array of ExternalExam objects
-type ExternalExams []ExternalExam
+// ApplExams is an array of ApplExam objects
+type ApplExams []ApplExam
 
 // BeforeCreate hook
-func (o *ExternalExam) BeforeCreate(scope *gorm.Scope) error {
+func (o *ApplExam) BeforeCreate(scope *gorm.Scope) error {
 	if valid, err := o.validate(); !valid {
 		return err
 	}
@@ -71,9 +71,9 @@ func (o *ExternalExam) BeforeCreate(scope *gorm.Scope) error {
 	return nil
 }
 
-// ExternalExamP2STransformer transforms ExternalExam Protobuf to Struct
-func ExternalExamP2STransformer(data *pbx.ExternalExam) ExternalExam {
-	model := ExternalExam{
+// ApplExamP2STransformer transforms ApplExam Protobuf to Struct
+func ApplExamP2STransformer(data *pbx.ApplExam) ApplExam {
+	model := ApplExam{
 		WaecExam:    postgres.Jsonb{json.RawMessage(data.GetWaecExam())},
 		NonWaecExam: postgres.Jsonb{json.RawMessage(data.GetNonWaecExam())},
 		Verified:    data.GetVerified(),
@@ -94,9 +94,9 @@ func ExternalExamP2STransformer(data *pbx.ExternalExam) ExternalExam {
 	return model
 }
 
-// ExternalExamS2PTransformer transforms ExternalExam Struct to Protobuf
-func ExternalExamS2PTransformer(data ExternalExam) *pbx.ExternalExam {
-	model := &pbx.ExternalExam{
+// ApplExamS2PTransformer transforms ApplExam Struct to Protobuf
+func ApplExamS2PTransformer(data ApplExam) *pbx.ApplExam {
+	model := &pbx.ApplExam{
 		ApplicantId: data.ApplicantID,
 		WaecExam:    string(data.WaecExam.RawMessage),
 		NonWaecExam: string(data.NonWaecExam.RawMessage),
@@ -113,7 +113,7 @@ func ExternalExamS2PTransformer(data ExternalExam) *pbx.ExternalExam {
 	return model
 }
 
-func (o *ExternalExam) validate() (bool, error) {
+func (o *ApplExam) validate() (bool, error) {
 	if valid, err := o.validateJSON(); err != nil {
 		return valid, err
 	}
@@ -121,7 +121,7 @@ func (o *ExternalExam) validate() (bool, error) {
 	return true, nil
 }
 
-func (o *ExternalExam) validateJSON() (bool, error) {
+func (o *ApplExam) validateJSON() (bool, error) {
 	validate = validator.New()
 	// register function to get tag name from json tags.
 	validate.RegisterTagNameFunc(func(fld reflect.StructField) string {
