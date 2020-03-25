@@ -18,8 +18,7 @@ var validate *validator.Validate
 
 // ExternalExam database model
 type ExternalExam struct {
-	ID            string         `json:"id" gorm:"type:UUID;primary_key;size:36"`
-	ApplicantID   string         `json:"applicantId" gorm:"type:UUID;" validate:"required"`
+	ApplicantID   string         `json:"applicantId" gorm:"type:UUID;;primary_key" validate:"required"`
 	WaecExam      postgres.Jsonb `json:"waecExams" gorm:"type:jsonb;default:'{}'"`
 	NonWaecExam   postgres.Jsonb `json:"nonWaecExams" gorm:"type:jsonb;default:'{}'"`
 	Verified      bool           `json:"verified" gorm:"default:false"`
@@ -75,7 +74,6 @@ func (o *ExternalExam) BeforeCreate(scope *gorm.Scope) error {
 // ExternalExamP2STransformer transforms ExternalExam Protobuf to Struct
 func ExternalExamP2STransformer(data *pbx.ExternalExam) ExternalExam {
 	model := ExternalExam{
-		ApplicantID: data.GetApplicantId(),
 		WaecExam:    postgres.Jsonb{json.RawMessage(data.GetWaecExam())},
 		NonWaecExam: postgres.Jsonb{json.RawMessage(data.GetNonWaecExam())},
 		Verified:    data.GetVerified(),
@@ -86,9 +84,9 @@ func ExternalExamP2STransformer(data *pbx.ExternalExam) ExternalExam {
 		BXXUpdatedFields: data.GetBXX_UpdatedFields(),
 	}
 
-	// If GetID has no value then it's a POST request (Create)
-	if len(data.GetId()) != 0 {
-		model.ID = data.GetId()
+	// If GetApplicantID has no value then it's a POST request (Create)
+	if len(data.GetApplicantId()) != 0 {
+		model.ApplicantID = data.GetApplicantId()
 	}
 
 	// Handle pointers after this
@@ -99,7 +97,6 @@ func ExternalExamP2STransformer(data *pbx.ExternalExam) ExternalExam {
 // ExternalExamS2PTransformer transforms ExternalExam Struct to Protobuf
 func ExternalExamS2PTransformer(data ExternalExam) *pbx.ExternalExam {
 	model := &pbx.ExternalExam{
-		Id:          data.ID,
 		ApplicantId: data.ApplicantID,
 		WaecExam:    string(data.WaecExam.RawMessage),
 		NonWaecExam: string(data.NonWaecExam.RawMessage),
@@ -117,6 +114,14 @@ func ExternalExamS2PTransformer(data ExternalExam) *pbx.ExternalExam {
 }
 
 func (o *ExternalExam) validate() (bool, error) {
+	if valid, err := o.validateJSON(); err != nil {
+		return valid, err
+	}
+
+	return true, nil
+}
+
+func (o *ExternalExam) validateJSON() (bool, error) {
 	validate = validator.New()
 	// register function to get tag name from json tags.
 	validate.RegisterTagNameFunc(func(fld reflect.StructField) string {
