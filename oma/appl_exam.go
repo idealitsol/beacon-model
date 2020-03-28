@@ -71,6 +71,14 @@ func (o *ApplExam) BeforeCreate(scope *gorm.Scope) error {
 	return nil
 }
 
+// BeforeUpdate hook
+func (o *ApplExam) BeforeUpdate() error {
+	if valid, err := o.validate(); !valid {
+		return err
+	}
+	return nil
+}
+
 // ApplExamP2STransformer transforms ApplExam Protobuf to Struct
 func ApplExamP2STransformer(data *pbx.ApplExam) ApplExam {
 	model := ApplExam{
@@ -140,29 +148,35 @@ func (o *ApplExam) validateJSON() (bool, error) {
 
 	// Validate WaecExam JSON by unmarshalling into struct to see if it's valid
 	var wes []WaecExam
-	if err := json.Unmarshal([]byte(string(o.WaecExam.RawMessage)), &wes); err != nil {
-		fmt.Printf("Json Unmarshal Error %v", err)
-		return false, fmt.Errorf("Invalid Waec Exam JSON property")
-	}
-	for _, we := range wes {
-		if err := validate.Struct(we); err != nil {
-			verrs := err.(validator.ValidationErrors)
-			fmt.Println(verrs)
-			return false, fmt.Errorf("%s is %s", verrs[0].Namespace(), verrs[0].Tag())
+	wesr := string(o.WaecExam.RawMessage)
+	if len(wesr) > 0 {
+		if err := json.Unmarshal([]byte(wesr), &wes); err != nil {
+			fmt.Printf("Json Unmarshal Error %v", err)
+			return false, fmt.Errorf("Invalid Waec Exam JSON property")
+		}
+		for _, we := range wes {
+			if err := validate.Struct(we); err != nil {
+				verrs := err.(validator.ValidationErrors)
+				fmt.Println(verrs)
+				return false, fmt.Errorf("%s is %s", verrs[0].Namespace(), verrs[0].Tag())
+			}
 		}
 	}
 
 	var nwes []NonWaecExam
-	if err := json.Unmarshal([]byte(string(o.NonWaecExam.RawMessage)), &nwes); err != nil {
-		fmt.Printf("Json Unmarshal Error %v", err)
-		return false, fmt.Errorf("Invalid Non Waec Exam JSON property")
-	}
+	nwesr := string(o.NonWaecExam.RawMessage)
+	if len(nwesr) > 0 {
+		if err := json.Unmarshal([]byte(nwesr), &nwes); err != nil {
+			fmt.Printf("Json Unmarshal Error %v", err)
+			return false, fmt.Errorf("Invalid Non Waec Exam JSON property")
+		}
 
-	for _, nwe := range nwes {
-		if err := validate.Struct(nwe); err != nil {
-			verrs := err.(validator.ValidationErrors)
-			fmt.Println(verrs)
-			return false, fmt.Errorf("%s is %s", verrs[0].Namespace(), verrs[0].Tag())
+		for _, nwe := range nwes {
+			if err := validate.Struct(nwe); err != nil {
+				verrs := err.(validator.ValidationErrors)
+				fmt.Println(verrs)
+				return false, fmt.Errorf("%s is %s", verrs[0].Namespace(), verrs[0].Tag())
+			}
 		}
 	}
 
