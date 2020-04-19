@@ -24,6 +24,7 @@ type Programme struct {
 	Status         bool          `json:"status" gorm:"default:true"`
 	CreatedAt      *time.Time    `json:"createdAt"`
 	UpdatedAt      *time.Time    `json:"updatedAt"`
+	InstitutionID  string        `json:"-" gorm:"type:UUID;"`
 
 	BXXUpdatedFields []string `json:"-" gorm:"-"`
 }
@@ -47,6 +48,7 @@ func ProgrammeP2STransformer(data *pbx.Programme) Programme {
 		Status:         data.GetStatus(),
 		CreatedAt:      util.GrpcTimeToGoTime(data.GetCreatedAt()),
 		UpdatedAt:      util.GrpcTimeToGoTime(data.GetUpdatedAt()),
+		InstitutionID:  data.GetInstitutionId(),
 
 		BXXUpdatedFields: data.GetBXX_UpdatedFields(),
 	}
@@ -78,6 +80,7 @@ func ProgrammeS2PTransformer(data Programme) *pbx.Programme {
 		Status:         data.Status,
 		CreatedAt:      util.GoTimeToGrpcTime(data.CreatedAt),
 		UpdatedAt:      util.GoTimeToGrpcTime(data.UpdatedAt),
+		InstitutionId:  data.InstitutionID,
 
 		BXX_UpdatedFields: data.BXXUpdatedFields,
 	}
