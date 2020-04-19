@@ -5,21 +5,22 @@ import (
 
 	"github.com/idealitsol/beacon-proto/pbx"
 	util "github.com/idealitsol/beacon-util"
+	"github.com/lib/pq"
 )
 
 // Organisation database model
 type Organisation struct {
-	ID            string     `json:"id" gorm:"type:UUID;primary_key;default:gen_random_uuid();size:36"`
-	Name          string     `json:"name" gorm:"type:varchar(100);not null"`
-	ShortName     string     `json:"shortName" gorm:"type:varchar(80)"`
-	Parent        string     `json:"parent" gorm:"type:UUID;"`
-	Type          string     `json:"type" gorm:"not null"` // Main, Campus, College, Faculty, Department, Division, Unit
-	Category      []string   `json:"category" gorm:""`     // Institution, Academic, Administration
-	InstitutionID string     `json:"institutionId" gorm:"type:UUID;"`
-	Status        bool       `json:"status" gorm:"default:true"`
-	CreatedAt     *time.Time `json:"createdAt"`
-	UpdatedAt     *time.Time `json:"updatedAt"`
-	Ordering      int32      `json:"ordering" gorm:"default:'-1'"`
+	ID            string         `json:"id" gorm:"type:UUID;primary_key;default:gen_random_uuid();size:36"`
+	Name          string         `json:"name" gorm:"type:varchar(100);not null"`
+	ShortName     string         `json:"shortName" gorm:"type:varchar(80)"`
+	Parent        string         `json:"parent" gorm:"type:UUID;"`
+	Type          string         `json:"type" gorm:"not null"` // Main, Campus, College, Faculty, Department, Division, Unit
+	Category      pq.StringArray `json:"category" gorm:""`     // Institution, Academic, Administration
+	InstitutionID string         `json:"institutionId" gorm:"type:UUID;"`
+	Status        bool           `json:"status" gorm:"default:true"`
+	CreatedAt     *time.Time     `json:"createdAt"`
+	UpdatedAt     *time.Time     `json:"updatedAt"`
+	Ordering      int32          `json:"ordering" gorm:"default:'-1'"`
 
 	BXXUpdatedFields []string `json:"-" gorm:"-"`
 }
